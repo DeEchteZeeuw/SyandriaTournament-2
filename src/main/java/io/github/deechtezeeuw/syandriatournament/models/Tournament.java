@@ -1,0 +1,221 @@
+package io.github.deechtezeeuw.syandriatournament.models;
+
+import io.github.deechtezeeuw.syandriatournament.SyandriaTournament;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.UUID;
+
+public class Tournament {
+    private final SyandriaTournament plugin = SyandriaTournament.getInstance();
+
+    // Tournament general settings
+    private boolean busy = false;
+    private boolean teams = false;
+
+    private int price = 1;
+
+    private int minimumPlayers = 8;
+    private int MaximumPlayers = 16;
+
+    private int round = 0;
+
+    // Participants room (Players who are competing in the tournament)
+    private ArrayList<UUID> participantPlayers = new ArrayList<>();
+
+    // Waiting room (Players waiting for a dual)
+    private ArrayList<UUID> waitingPlayers = new ArrayList<>();
+
+    // Current battle (Players who are in the current battle)
+    private ArrayList<UUID> fightingTeamOne = new ArrayList<>();
+    private ArrayList<UUID> fightingTeamTwo = new ArrayList<>();
+    private ArrayList<UUID> fightingTeamThree = new ArrayList<>();
+    private ArrayList<UUID> fightingTeamFour = new ArrayList<>();
+
+    // Battle winners (Players who won there fight and are waiting to go to the next round)
+    private ArrayList<UUID> battleWinners = new ArrayList<>();
+
+    public void start() {
+        // Send message to all players that the tournament is beginning
+        Bukkit.getServer().broadcastMessage(plugin.getColor().colorPrefix("&aHet toernooi in &2&lSyandria &azal nu starten!"));
+    }
+
+
+    /* Signing in/out functions */
+    // Check if player is signed in
+    public boolean isSignedIn(UUID player) {
+        return (this.participantPlayers.contains(player));
+    }
+
+    // Sign player in as participant
+    public void signIn(UUID player) {
+        this.participantPlayers.add(player);
+    }
+
+    // Sign player out as participant
+    public void signOut(UUID player) {
+        this.participantPlayers.remove(player);
+    }
+
+    // Reset participants
+    public void resetParticipants() {
+        this.participantPlayers = new ArrayList<>();
+    }
+
+    /* Waiting functions */
+    // Set player in waiting
+    public void setParticipantInWaiting(UUID player) {
+        this.waitingPlayers.add(player);
+    }
+
+    // Remove player from waiting
+    public void removeFromWaiting(UUID player) {
+        this.waitingPlayers.remove(player);
+    }
+
+    // Get random from waiting
+    public UUID randomWaiting() {
+        return this.waitingPlayers.get((int)(Math.random() * waitingPlayers.size()));
+    }
+
+    // Get waiting players
+    public ArrayList<UUID> getWaitingPlayers() {
+        return waitingPlayers;
+    }
+
+    // Get size of waiting players
+    public int getWaitingSize() {
+        return waitingPlayers.size();
+    }
+
+    // Reset waiting
+    public void resetWaiting() {
+        this.waitingPlayers = new ArrayList<>();
+    }
+
+    /* Fighting team one functions */
+    // Add to fighting team one
+    public void addToFightingTeamOne(UUID player) {
+        this.fightingTeamOne.add(player);
+    }
+
+    // Remove from fighting team one
+    public void removeFromFightingTeamOne(UUID player) {
+        this.fightingTeamOne.remove(player);
+    }
+
+    // Check if player is in fighting team one
+    public boolean isInFightingTeamOne(UUID player) {
+        return this.fightingTeamOne.contains(player);
+    }
+
+    // Get all fighters from fighting team one
+    public ArrayList<UUID> getFightingTeamOne() {
+        return fightingTeamOne;
+    }
+
+    // Reset fighting team one
+    public void resetFightingTeamOne() {
+        this.fightingTeamOne = new ArrayList<>();
+    }
+
+    /* Fighting team two functions */
+    // Add to fighting team two
+    public void addToFightingTeamTwo(UUID player) {
+        this.fightingTeamTwo.add(player);
+    }
+
+    // Remove from fighting team two
+    public void removeFromFightingTeamTwo(UUID player) {
+        this.fightingTeamTwo.remove(player);
+    }
+
+    // Check if player is in fighting team two
+    public boolean isInFightingTeamTwo(UUID player) {
+        return this.fightingTeamTwo.contains(player);
+    }
+
+    // Get all fighters from fighting team two
+    public ArrayList<UUID> getFightingTeamTwo() {
+        return fightingTeamTwo;
+    }
+
+    // Reset fighting team one
+    public void resetFightingTeamTwo() {
+        this.fightingTeamTwo = new ArrayList<>();
+    }
+
+    /* Fighting team three functions */
+    // Add to fighting team three
+    public void addToFightingTeamThree(UUID player) {
+        this.fightingTeamThree.add(player);
+    }
+
+    // Remove from fighting team three
+    public void removeFromFightingTeamThree(UUID player) {
+        this.fightingTeamThree.remove(player);
+    }
+
+    // Check if player is in fighting team three
+    public boolean isInFightingTeamThree(UUID player) {
+        return this.fightingTeamThree.contains(player);
+    }
+
+    // Get all fighters from fighting team three
+    public ArrayList<UUID> getFightingTeamThree() {
+        return fightingTeamThree;
+    }
+
+    // Reset fighting team three
+    public void resetFightingTeamThree() {
+        this.fightingTeamThree = new ArrayList<>();
+    }
+
+    /* Fighting team four functions */
+    // Add to fighting team four
+    public void addToFightingTeamFour(UUID player) {
+        this.fightingTeamFour.add(player);
+    }
+
+    // Remove from fighting team four
+    public void removeFromFightingTeamFour(UUID player) {
+        this.fightingTeamFour.remove(player);
+    }
+
+    // Check if player is in fighting team four
+    public boolean isInFightingTeamFour(UUID player) {
+        return this.fightingTeamFour.contains(player);
+    }
+
+    // Get all fighters from fighting team four
+    public ArrayList<UUID> getFightingTeamFour() {
+        return fightingTeamFour;
+    }
+
+    // Reset fighting team four
+    public void resetFightingTeamFour() {
+        this.fightingTeamFour = new ArrayList<>();
+    }
+
+    /* Battle winner functions */
+    // Add to winners list
+    public void addBattleWinner(UUID player) {
+        this.battleWinners.add(player);
+    }
+
+    // Remove from winners list
+    public void removeBattleWinner(UUID player) {
+        this.battleWinners.add(player);
+    }
+
+    // Get all battle winners in bulk
+    public ArrayList<UUID> getBattleWinners() {
+        return battleWinners;
+    }
+
+    // Reset battle winners in bulk
+    public void resetBattleWinners() {
+        this.battleWinners = new ArrayList<>();
+    }
+}
