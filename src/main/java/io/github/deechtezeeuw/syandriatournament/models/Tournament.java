@@ -4,6 +4,8 @@ import io.github.deechtezeeuw.syandriatournament.SyandriaTournament;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -20,6 +22,9 @@ public class Tournament {
     private int maximumPlayers = 16;
 
     private int round = 0;
+
+    private LocalDate date = LocalDate.now();
+    private LocalTime time = LocalTime.now();
 
     // Participants room (Players who are competing in the tournament)
     private ArrayList<UUID> participantPlayers = new ArrayList<>();
@@ -85,6 +90,31 @@ public class Tournament {
     // Get maximum players of the tournament
     public int getMaximumPlayers() {
         return this.maximumPlayers;
+    }
+
+    // Upper round
+    public void nextRound() {
+        this.round = this.round + 1;
+    }
+
+    // Set game date
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    // Get game date
+    public LocalDate getDate() {
+        return date;
+    }
+
+    // Set game time
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
+    // Get game time
+    public LocalTime getTime() {
+        return time;
     }
 
     /* Signing in/out functions */
