@@ -104,6 +104,49 @@ public class Tournament {
         return date;
     }
 
+    // Get date string
+    public String dateString() {
+        String text = "";
+
+        if (date.getDayOfMonth() < 10) {
+            text += "0" + date.getDayOfMonth();
+        } else {
+            text += date.getDayOfMonth();
+        }
+
+        text += "-";
+
+        if (date.getMonthValue() < 10) {
+            text += "0" + date.getMonthValue();
+        } else {
+            text += date.getMonthValue();
+        }
+
+        text += "-" + date.getYear();
+
+        return text;
+    }
+
+    public String timeString() {
+        String text = "";
+
+        if (date.getHour() < 10) {
+            text += "0" + date.getHour();
+        } else {
+            text += date.getHour();
+        }
+
+        text += ":";
+
+        if (date.getMinute() < 10) {
+            text += "0" + date.getMinute();
+        } else {
+            text += date.getMinute();
+        }
+
+        return text;
+    }
+
     /* Signing in/out functions */
     // Check if player is signed in
     public boolean isSignedIn(UUID player) {

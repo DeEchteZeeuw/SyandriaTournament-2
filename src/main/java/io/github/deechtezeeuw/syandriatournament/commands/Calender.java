@@ -1,9 +1,11 @@
 package io.github.deechtezeeuw.syandriatournament.commands;
 
 import io.github.deechtezeeuw.syandriatournament.SyandriaTournament;
+import io.github.deechtezeeuw.syandriatournament.utils.GUI;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
 
 public class Calender extends Commands {
     private final SyandriaTournament plugin = SyandriaTournament.getInstance();
@@ -20,11 +22,13 @@ public class Calender extends Commands {
             sender.sendMessage(plugin.getColor().colorPrefix("&cDit kan alleen in-game worden uitgevoerd."));
             return;
         }
+
+        new GUI().openCalender((Player) sender, 0);
     }
 
     @Override
     public String name() {
-        return "calender";
+        return "kalender";
     }
 
     @Override

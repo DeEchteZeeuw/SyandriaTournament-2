@@ -27,6 +27,18 @@ public class TournamentManager {
         return registeredTournaments;
     }
 
+    public ArrayList<Tournament> getArrayRegistreredTournaments() {
+        ArrayList<Tournament> tournaments = new ArrayList<>();
+
+        this.registeredTournaments.forEach((UUID, Tournament) -> {
+            tournaments.add(Tournament);
+        });
+
+        tournaments.sort((Tournament a , Tournament b) -> a.getDate().compareTo(b.getDate()));
+
+        return tournaments;
+    }
+
     // Get specific registeredTournaments
     public Tournament getRegisteredTournament(UUID uuid) {
         return this.registeredTournaments.get(uuid);

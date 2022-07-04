@@ -1,6 +1,7 @@
 package io.github.deechtezeeuw.syandriatournament.managers;
 
 import io.github.deechtezeeuw.syandriatournament.SyandriaTournament;
+import io.github.deechtezeeuw.syandriatournament.commands.Calender;
 import io.github.deechtezeeuw.syandriatournament.commands.Commands;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -24,6 +25,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         plugin.getCommand(main).setTabCompleter(this);
 
         // register subcommands
+        commands.add(new Calender());
 //        commands.add(new Reload());
 //        commands.add(new Start());
     }
@@ -35,9 +37,9 @@ public class CommandManager implements CommandExecutor, TabCompleter {
 
         if (args.length == 1) {
             // main
-//            if (sender.hasPermission("seasonfinale.reload")) {
-//                completions.add("reload");
-//            }
+            if (sender.hasPermission("syandriatournament.calender")) {
+                completions.add("kalender");
+            }
         }
 
         if (args.length == 2) {
