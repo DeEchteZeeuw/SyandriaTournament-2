@@ -1,12 +1,10 @@
 package io.github.deechtezeeuw.syandriatournament.models;
 
 import io.github.deechtezeeuw.syandriatournament.SyandriaTournament;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 public class Tournament {
@@ -23,8 +21,7 @@ public class Tournament {
 
     private int round = 0;
 
-    private LocalDate date = LocalDate.now();
-    private LocalTime time = LocalTime.now();
+    private LocalDateTime date = LocalDateTime.now();
 
     // Participants room (Players who are competing in the tournament)
     private ArrayList<UUID> participantPlayers = new ArrayList<>();
@@ -98,23 +95,13 @@ public class Tournament {
     }
 
     // Set game date
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
     // Get game date
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
-    }
-
-    // Set game time
-    public void setTime(LocalTime time) {
-        this.time = time;
-    }
-
-    // Get game time
-    public LocalTime getTime() {
-        return time;
     }
 
     /* Signing in/out functions */
