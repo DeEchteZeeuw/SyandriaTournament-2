@@ -1,6 +1,7 @@
 package io.github.deechtezeeuw.syandriatournament;
 
 import io.github.deechtezeeuw.syandriatournament.managers.CommandManager;
+import io.github.deechtezeeuw.syandriatournament.managers.TournamentManager;
 import io.github.deechtezeeuw.syandriatournament.utils.TextColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,6 +14,7 @@ public final class SyandriaTournament extends JavaPlugin {
     private TextColor color;
 
     // Managers
+    private TournamentManager tournamentManager;
     private CommandManager commandManager;
 
     @Override
@@ -24,6 +26,7 @@ public final class SyandriaTournament extends JavaPlugin {
         color = new TextColor();
 
         // Managers
+        tournamentManager = new TournamentManager();
         commandManager = new CommandManager();
         commandManager.setup();
 
@@ -48,5 +51,9 @@ public final class SyandriaTournament extends JavaPlugin {
 
     public TextColor getColor() {
         return color;
+    }
+
+    public TournamentManager getTournamentManager() {
+        return tournamentManager;
     }
 }

@@ -55,7 +55,15 @@ public class CommandManager implements CommandExecutor, TabCompleter {
 
         // Check if there are no arguments
         if (args.length == 0) {
-            sender.sendMessage(plugin.getColor().colorPrefix("&aHet volgende &2&lSyandria Toernooi &ais op &2&lMaandag 15:00&a!"));
+            if (plugin.getTournamentManager().isThereAnTournament()) {
+                if (plugin.getTournamentManager().isActiveTournament()) {
+                    sender.sendMessage(plugin.getColor().colorPrefix("&aHet volgende &2&lSyandria Toernooi &ais op &2&lMaandag 15:00&a!"));
+                } else {
+                    sender.sendMessage(plugin.getColor().colorPrefix("&cEr is geen volgend toernooi ingesteld! Probeer het later nog eens."));
+                }
+            } else {
+                sender.sendMessage(plugin.getColor().colorPrefix("&cEr zijn geen toernooien geregistreerd! Probeer het later nog eens."));
+            }
             return true;
         }
 
