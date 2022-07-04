@@ -46,4 +46,15 @@ public class TournamentManager {
     public void resetRegisteredTournaments() {
         this.registeredTournaments = new HashMap<>();
     }
+
+    /* Tournament information functions */
+    // See if there is a tournament active or registered
+    public boolean isThereAnTournament() {
+        return (this.currentTournament != null || this.registeredTournaments.size() > 0);
+    }
+
+    // See if there is an active tournament
+    public boolean isActiveTournament() {
+        return (this.currentTournament != null);
+    }
 }
