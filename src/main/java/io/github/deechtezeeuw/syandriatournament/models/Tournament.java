@@ -17,7 +17,7 @@ public class Tournament {
     private int price = 1;
 
     private int minimumPlayers = 8;
-    private int MaximumPlayers = 16;
+    private int maximumPlayers = 16;
 
     private int round = 0;
 
@@ -36,11 +36,56 @@ public class Tournament {
     // Battle winners (Players who won there fight and are waiting to go to the next round)
     private ArrayList<UUID> battleWinners = new ArrayList<>();
 
-    public void start() {
-        // Send message to all players that the tournament is beginning
-        Bukkit.getServer().broadcastMessage(plugin.getColor().colorPrefix("&aHet toernooi in &2&lSyandria &azal nu starten!"));
+    /* Change tournament settings */
+    // Set busy of the tournament
+    public void setBusy(boolean value) {
+        this.busy = value;
     }
 
+    // Get busy of the tournament
+    public boolean isBusy() {
+        return busy;
+    }
+
+    // Set teams (2vs2) in the tournament
+    public void setTeams(boolean value) {
+        this.teams = value;
+    }
+
+    // Get teams value of the tournament
+    public boolean getTeams() {
+        return teams;
+    }
+
+    // Set price of the tournament
+    public void setPrice(int amount) {
+        this.price = amount;
+    }
+
+    // Get price of the tournament
+    public int getPrice() {
+        return this.price;
+    }
+
+    // Set minimum players of the tournament
+    public void setMinimumPlayers(int amount) {
+        this.minimumPlayers = amount;
+    }
+
+    // Get minimum players
+    public int getMinimumPlayers() {
+        return this.minimumPlayers;
+    }
+
+    // Set maximum players of the tournament
+    public void setMaximumPlayers(int amount) {
+        this.maximumPlayers = amount;
+    }
+
+    // Get maximum players of the tournament
+    public int getMaximumPlayers() {
+        return this.maximumPlayers;
+    }
 
     /* Signing in/out functions */
     // Check if player is signed in
