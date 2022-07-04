@@ -23,7 +23,7 @@ tournaments:
         players:
           minimum: 4
           maximum: 16
-      time: 19:00
+      time: "19:00"
     1:
       settings:
         price: 20
@@ -31,7 +31,7 @@ tournaments:
         players:
           minimum: 4
           maximum: 16
-      time: 20:00
+      time: "20:00"
   tuesday:
   wednesday:
   thursday:
@@ -42,7 +42,7 @@ tournaments:
         players:
           minimum: 4
           maximum: 16
-      time: 20:00
+      time: "20:00"
   friday:
     0:
       settings:
@@ -51,7 +51,7 @@ tournaments:
         players:
           minimum: 4
           maximum: 16
-      time: 20:00
+      time: "20:00"
   saturday:
     0:
       settings:
@@ -60,7 +60,7 @@ tournaments:
         players:
           minimum: 4
           maximum: 16
-      time: 20:00
+      time: "20:00"
   sunday:
     0:
       settings:
@@ -69,7 +69,7 @@ tournaments:
         players:
           minimum: 4
           maximum: 16
-      time: 14:00
+      time: "14:00"
     1:
       settings:
         price: 5
@@ -77,7 +77,7 @@ tournaments:
         players:
           minimum: 4
           maximum: 16
-      time: 16:00
+      time: "16:00"
     2:
       settings:
         price: 5
@@ -85,4 +85,4 @@ tournaments:
         players:
           minimum: 4
           maximum: 16
-      time: 20:00
+      time: "20:00"
