@@ -13,3 +13,75 @@
 # |_____/ \__, |\__,_|_| |_|\__,_|_|  |_|\__,_|
 #          __/ |
 #         |___/
+tournaments:
+  monday:
+    0:
+      settings:
+        price: 5
+        teams: false
+        players:
+          minimum: 4
+          maximum: 16
+      time: 19:00
+    1:
+      settings:
+        price: 20
+        teams: false
+        players:
+          minimum: 4
+          maximum: 16
+      time: 20:00
+  tuesday:
+  wednesday:
+  thursday:
+    0:
+      settings:
+        price: 5
+        teams: false
+        players:
+          minimum: 4
+          maximum: 16
+      time: 20:00
+  friday:
+    0:
+      settings:
+        price: 5
+        teams: false
+        players:
+          minimum: 4
+          maximum: 16
+      time: 20:00
+  saturday:
+    0:
+      settings:
+        price: 5
+        teams: false
+        players:
+          minimum: 4
+          maximum: 16
+      time: 20:00
+  sunday:
+    0:
+      settings:
+        price: 5
+        teams: false
+        players:
+          minimum: 4
+          maximum: 16
+      time: 14:00
+    1:
+      settings:
+        price: 5
+        teams: false
+        players:
+          minimum: 4
+          maximum: 16
+      time: 16:00
+    2:
+      settings:
+        price: 5
+        teams: false
+        players:
+          minimum: 4
+          maximum: 16
+      time: 20:00
