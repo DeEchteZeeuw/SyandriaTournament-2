@@ -2,3 +2,7 @@ name: SyandriaTournament
 version: '${project.version}'
 main: io.github.deechtezeeuw.syandriatournament.SyandriaTournament
 authors: [ DeZeeuw ]
+commands:
+  syandriatournament:
+    usage: /<command>
+    description: Main command

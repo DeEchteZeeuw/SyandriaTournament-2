@@ -1,5 +1,6 @@
 package io.github.deechtezeeuw.syandriatournament;
 
+import io.github.deechtezeeuw.syandriatournament.managers.CommandManager;
 import io.github.deechtezeeuw.syandriatournament.utils.TextColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -11,6 +12,9 @@ public final class SyandriaTournament extends JavaPlugin {
     // Utils
     private TextColor color;
 
+    // Managers
+    private CommandManager commandManager;
+
     @Override
     public void onEnable() {
         instance = this;
@@ -18,6 +22,10 @@ public final class SyandriaTournament extends JavaPlugin {
 
         // Utils
         color = new TextColor();
+
+        // Managers
+        commandManager = new CommandManager();
+        commandManager.setup();
 
         console.sendMessage(color.color("&7&m----------------------------------------"));
         console.sendMessage(color.color("&9&l" + getDescription().getName() + " &aenabled!"));
