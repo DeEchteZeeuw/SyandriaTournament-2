@@ -122,6 +122,8 @@ public class TournamentManager {
                 removeRegisteredTournament(tournament.getUuid());
 
                 this.currentTournament = tournament;
+
+                this.currentTournament.tillStartMessages();
             }
         }
     }

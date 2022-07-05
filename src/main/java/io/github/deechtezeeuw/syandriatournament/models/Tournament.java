@@ -1,6 +1,7 @@
 package io.github.deechtezeeuw.syandriatournament.models;
 
 import io.github.deechtezeeuw.syandriatournament.SyandriaTournament;
+import org.bukkit.Bukkit;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -39,6 +40,9 @@ public class Tournament {
 
     // Battle winners (Players who won there fight and are waiting to go to the next round)
     private ArrayList<UUID> battleWinners = new ArrayList<>();
+
+    // Array with IDS of message loopings
+    private ArrayList<Integer> messageLoops = new ArrayList<>();
 
     /* Change tournament settings */
     // Set UUID of the tournament
@@ -364,5 +368,52 @@ public class Tournament {
     // Reset battle winners in bulk
     public void resetBattleWinners() {
         this.battleWinners = new ArrayList<>();
+    }
+
+    /* Array loop functions */
+    // Reset array loop
+    public void resetMessageLoop() {
+        for (int id : this.messageLoops) {
+            Bukkit.getScheduler().cancelTask(id);
+        }
+        this.messageLoops = new ArrayList<>();
+    }
+
+    // Create messages till start
+    public void tillStartMessages() {
+        if ((int)ChronoUnit.SECONDS.between(LocalDateTime.now(), this.date.minus(30, ChronoUnit.MINUTES)) > 0) {
+            this.messageLoops.add(Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                public void run() {
+                    Bukkit.getServer().broadcastMessage(plugin.getColor().colorPrefix("&aHet toernooi in &2&lSyandria &abegint over 30 minuten"));
+                }
+            }, 20L * (int) ChronoUnit.SECONDS.between(LocalDateTime.now(), this.date.minus(30, ChronoUnit.MINUTES))));
+        }
+
+        if ((int)ChronoUnit.SECONDS.between(LocalDateTime.now(), this.date.minus(15, ChronoUnit.MINUTES)) > 0) {
+            this.messageLoops.add(Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                public void run() {
+                    Bukkit.getServer().broadcastMessage(plugin.getColor().colorPrefix("&aHet toernooi in &2&lSyandria &abegint over 15 minuten"));
+                }
+            }, 20L * (int) ChronoUnit.SECONDS.between(LocalDateTime.now(), this.date.minus(15, ChronoUnit.MINUTES))));
+        }
+
+        if ((int)ChronoUnit.SECONDS.between(LocalDateTime.now(), this.date.minus(5, ChronoUnit.MINUTES)) > 0) {
+            this.messageLoops.add(Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                public void run() {
+                    Bukkit.getServer().broadcastMessage(plugin.getColor().colorPrefix("&aHet toernooi in &2&lSyandria &abegint over 5 minuten"));
+                }
+            }, 20L * (int) ChronoUnit.SECONDS.between(LocalDateTime.now(), this.date.minus(5, ChronoUnit.MINUTES))));
+        }
+
+        if ((int)ChronoUnit.SECONDS.between(LocalDateTime.now(), this.date) > 0) {
+            this.messageLoops.add(Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                public void run() {
+                    // Start game
+                    setBusy(true);
+                }
+            }, 20L * (int) ChronoUnit.SECONDS.between(LocalDateTime.now(), this.date)));
+        } else {
+            setBusy(true);
+        }
     }
 }
