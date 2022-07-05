@@ -22,4 +22,8 @@ public class ConfigurationManager {
     public Tournaments getTournaments() {
         return tournaments;
     }
+
+    public Npc getNpc() {
+        return npc;
+    }
 }

@@ -17,8 +17,13 @@ public class PlayerInteractEntity implements Listener {
         Player player = e.getPlayer();
         Entity entity = e.getRightClicked();
 
-        if (e.getHand().equals(EquipmentSlot.HAND) && CitizensAPI.getNPCRegistry().isNPC(entity)) {
-
+        // Check if entity is an npc from citizens
+        if (e.getHand().equals(EquipmentSlot.HAND) && CitizensAPI.getNPCRegistry().isNPC(entity) && plugin.getConfigurationManager().getNpc().list.contains(CitizensAPI.getNPCRegistry().getNPC(entity).getUniqueId())) {
+            // Open an inventory with all tournaments of today
+            if (plugin.getTournamentManager().isThereAnTournamentToday()) {
+                player.sendMessage(plugin.getColor().colorPrefix("&cEr zijn geen toernooien om in te schrijven"));
+                return;
+            }
         }
     }
 }

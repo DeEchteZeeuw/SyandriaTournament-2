@@ -3,6 +3,7 @@ package io.github.deechtezeeuw.syandriatournament.managers;
 import io.github.deechtezeeuw.syandriatournament.models.Tournament;
 import org.bukkit.Bukkit;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -64,6 +65,17 @@ public class TournamentManager {
     // See if there is a tournament active or registered
     public boolean isThereAnTournament() {
         return (this.currentTournament != null || this.registeredTournaments.size() > 0);
+    }
+
+    // Check if there is an tournament today
+    public boolean isThereAnTournamentToday() {
+        // Check if there are tournaments
+        if (isThereAnTournament()) {
+            if (getArrayRegistreredTournaments().size() > 0 && getArrayRegistreredTournaments().get(0).getDate().getDayOfMonth() == LocalDateTime.now().getDayOfMonth()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // See if there is an active tournament

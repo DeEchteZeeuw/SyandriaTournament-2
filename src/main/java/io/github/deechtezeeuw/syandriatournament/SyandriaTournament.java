@@ -70,6 +70,10 @@ public final class SyandriaTournament extends JavaPlugin {
         return tournamentManager;
     }
 
+    public ConfigurationManager getConfigurationManager() {
+        return configurationManager;
+    }
+
     public GUI getGui() {
         return gui;
     }
