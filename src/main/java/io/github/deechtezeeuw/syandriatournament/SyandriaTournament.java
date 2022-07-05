@@ -40,6 +40,7 @@ public final class SyandriaTournament extends JavaPlugin {
         configurationManager = new ConfigurationManager();
         eventManager = new EventManager();
 
+        // GUI util
         gui = new GUI();
 
         console.sendMessage(color.color("&7&m----------------------------------------"));
