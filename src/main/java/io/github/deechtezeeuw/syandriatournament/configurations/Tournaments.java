@@ -131,9 +131,13 @@ public class Tournaments extends Configuration{
 
                 tournament.setDate(dateTime);
 
-                plugin.getTournamentManager().addRegisteredTournament(UUID.randomUUID(), tournament);
+                UUID uuid = UUID.randomUUID();
+                tournament.setUuid(uuid);
+
+                plugin.getTournamentManager().addRegisteredTournament(uuid, tournament);
             }
         }
+        plugin.getTournamentManager().pickNextTournament();
     }
 
     @Override

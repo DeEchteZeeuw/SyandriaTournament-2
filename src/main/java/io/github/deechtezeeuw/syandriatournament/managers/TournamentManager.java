@@ -1,6 +1,7 @@
 package io.github.deechtezeeuw.syandriatournament.managers;
 
 import io.github.deechtezeeuw.syandriatournament.models.Tournament;
+import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,5 +69,17 @@ public class TournamentManager {
     // See if there is an active tournament
     public boolean isActiveTournament() {
         return (this.currentTournament != null);
+    }
+
+    public void pickNextTournament() {
+        if (isThereAnTournament()) {
+            if (!isActiveTournament()) {
+                Tournament tournament = getArrayRegistreredTournaments().get(0);
+
+                removeRegisteredTournament(tournament.getUuid());
+
+                this.currentTournament = tournament;
+            }
+        }
     }
 }

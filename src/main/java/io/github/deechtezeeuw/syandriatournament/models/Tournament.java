@@ -11,6 +11,7 @@ public class Tournament {
     private final SyandriaTournament plugin = SyandriaTournament.getInstance();
 
     // Tournament general settings
+    private UUID uuid;
     private boolean busy = false;
     private boolean teams = false;
 
@@ -39,6 +40,16 @@ public class Tournament {
     private ArrayList<UUID> battleWinners = new ArrayList<>();
 
     /* Change tournament settings */
+    // Set UUID of the tournament
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
+    // Get uuid of tournament
+    public UUID getUuid() {
+        return uuid;
+    }
+
     // Set busy of the tournament
     public void setBusy(boolean value) {
         this.busy = value;

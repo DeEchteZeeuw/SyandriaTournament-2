@@ -2,7 +2,9 @@ package io.github.deechtezeeuw.syandriatournament;
 
 import io.github.deechtezeeuw.syandriatournament.managers.CommandManager;
 import io.github.deechtezeeuw.syandriatournament.managers.ConfigurationManager;
+import io.github.deechtezeeuw.syandriatournament.managers.EventManager;
 import io.github.deechtezeeuw.syandriatournament.managers.TournamentManager;
+import io.github.deechtezeeuw.syandriatournament.utils.GUI;
 import io.github.deechtezeeuw.syandriatournament.utils.TextColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,6 +20,10 @@ public final class SyandriaTournament extends JavaPlugin {
     private TournamentManager tournamentManager;
     private CommandManager commandManager;
     private ConfigurationManager configurationManager;
+    private EventManager eventManager;
+
+    // GUI
+    private GUI gui;
 
     @Override
     public void onEnable() {
@@ -32,6 +38,9 @@ public final class SyandriaTournament extends JavaPlugin {
         commandManager = new CommandManager();
         commandManager.setup();
         configurationManager = new ConfigurationManager();
+        eventManager = new EventManager();
+
+        gui = new GUI();
 
         console.sendMessage(color.color("&7&m----------------------------------------"));
         console.sendMessage(color.color("&9&l" + getDescription().getName() + " &aenabled!"));
@@ -58,6 +67,10 @@ public final class SyandriaTournament extends JavaPlugin {
 
     public TournamentManager getTournamentManager() {
         return tournamentManager;
+    }
+
+    public GUI getGui() {
+        return gui;
     }
 
     public boolean isNumeric(String strNum) {
