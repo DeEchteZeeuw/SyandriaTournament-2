@@ -83,7 +83,13 @@ public class TournamentManager {
     public ArrayList<Tournament> getTodaysTournaments() {
         ArrayList<Tournament> tournaments = new ArrayList<>();
 
-        if (isActiveTournament()) tournaments.add(getCurrentTournament());
+        if (isActiveTournament()) {
+            if (!getCurrentTournament().isBusy()) {
+                if (getCurrentTournament().getDate().getHour() > LocalDateTime.now().getHour() && getCurrentTournament().getDate().getMinute() > LocalDateTime.now().getMinute()) {
+                    tournaments.add(currentTournament);
+                }
+            }
+        }
 
         for (Tournament tournament : getArrayRegistreredTournaments()) {
             if (tournament.getDate().getDayOfMonth() != LocalDateTime.now().getDayOfMonth()) continue;
