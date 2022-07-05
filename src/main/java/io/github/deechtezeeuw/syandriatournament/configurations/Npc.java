@@ -15,12 +15,15 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class Npc extends Configuration{
     private final SyandriaTournament plugin = SyandriaTournament.getInstance();
     private File configFile;
     private FileConfiguration config;
+
+    public ArrayList<UUID> list = new ArrayList<>();
 
     public Npc() {
         this.createConfig();
@@ -50,7 +53,18 @@ public class Npc extends Configuration{
 
     @Override
     public void load() {
+        this.list = new ArrayList<>();
 
+        for (String stringUUID : getConfig().getStringList("npcs")) {
+            try {
+                UUID.fromString(stringUUID);
+            } catch (Exception e) {
+                Bukkit.getConsoleSender().sendMessage(plugin.getColor().colorPrefix("&cDe UUID &4&l" + stringUUID + " &cis niet correct en wordt overgeslagen."));
+                continue;
+            }
+
+            list.add(UUID.fromString(stringUUID));
+        }
     }
 
     @Override
