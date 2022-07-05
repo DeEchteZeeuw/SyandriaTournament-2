@@ -4,6 +4,7 @@ import io.github.deechtezeeuw.syandriatournament.models.Tournament;
 import org.bukkit.Bukkit;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -71,9 +72,15 @@ public class TournamentManager {
     public boolean isThereAnTournamentToday() {
         // Check if there are tournaments
         if (isThereAnTournament()) {
-            if (isActiveTournament()) return true;
+            if (isActiveTournament()) {
+                if ((int) ChronoUnit.DAYS.between(LocalDateTime.now(), getCurrentTournament().getDate()) <= 0) {
+                    return true;
+                }
+            }
             for (Tournament tournament : getArrayRegistreredTournaments()) {
-                if (tournament.getDate().getDayOfMonth() == LocalDateTime.now().getDayOfMonth()) return true;
+                if ((int) ChronoUnit.DAYS.between(LocalDateTime.now(), tournament.getDate()) > 0) continue;
+                if ((int) ChronoUnit.SECONDS.between(LocalDateTime.now(), tournament.getDate()) <= 0) continue;
+                return true;
             }
         }
         return false;
@@ -85,15 +92,15 @@ public class TournamentManager {
 
         if (isActiveTournament()) {
             if (!getCurrentTournament().isBusy()) {
-                if (getCurrentTournament().getDate().getHour() > LocalDateTime.now().getHour() && getCurrentTournament().getDate().getMinute() > LocalDateTime.now().getMinute()) {
+                if ((int) ChronoUnit.DAYS.between(LocalDateTime.now(), getCurrentTournament().getDate()) <= 0 && (int) ChronoUnit.SECONDS.between(LocalDateTime.now(), getCurrentTournament().getDate()) > 0) {
                     tournaments.add(currentTournament);
                 }
             }
         }
 
         for (Tournament tournament : getArrayRegistreredTournaments()) {
-            if (tournament.getDate().getDayOfMonth() != LocalDateTime.now().getDayOfMonth()) continue;
-            if (tournament.getDate().getHour() <= LocalDateTime.now().getHour() && tournament.getDate().getMinute() <= LocalDateTime.now().getMinute()) continue;
+            if ((int) ChronoUnit.DAYS.between(LocalDateTime.now(), tournament.getDate()) > 0) continue;
+            if ((int) ChronoUnit.SECONDS.between(LocalDateTime.now(), tournament.getDate()) <= 0) continue;
             tournaments.add(tournament);
         }
 

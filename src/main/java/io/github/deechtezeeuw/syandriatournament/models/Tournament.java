@@ -3,6 +3,7 @@ package io.github.deechtezeeuw.syandriatournament.models;
 import io.github.deechtezeeuw.syandriatournament.SyandriaTournament;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
@@ -156,6 +157,36 @@ public class Tournament {
         }
 
         return text;
+    }
+
+    // Can register
+    public boolean canRegister() {
+        if (this.isBusy()) return false;
+
+        return (ChronoUnit.MILLIS.between(LocalDateTime.now(), this.date) <= 900000);
+    }
+
+    // Get milliseconds till start
+    public int getMilliSecondsTillStart() {
+        if (this.isBusy()) return 0;
+
+        return (int)ChronoUnit.MILLIS.between(LocalDateTime.now(), this.date);
+    }
+
+    // Get String of till register
+    public String timeTillRegisterIsOpen() {
+        String text = "";
+
+        int s = (int)ChronoUnit.SECONDS.between(LocalDateTime.now(), this.date) - 900;
+        int sec = s % 60;
+        int min = (s / 60)%60;
+        int hours = (s/60)/60;
+
+        String strSec=(sec<10)?"0"+Integer.toString(sec):Integer.toString(sec);
+        String strmin=(min<10)?"0"+Integer.toString(min):Integer.toString(min);
+        String strHours=(hours<10)?"0"+Integer.toString(hours):Integer.toString(hours);
+
+        return strHours + ":" + strmin + ":" + strSec;
     }
 
     /* Signing in/out functions */

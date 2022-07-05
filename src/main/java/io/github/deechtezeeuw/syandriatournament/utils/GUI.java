@@ -98,12 +98,26 @@ public class GUI {
         int x = 0;
         for (Tournament tournament : plugin.getTournamentManager().getTodaysTournaments()) {
             if (x > size) break;
-            ArrayList<String> lore = new ArrayList<>();
-            lore.add(plugin.getColor().color("&2&lDatum: &a" + tournament.dateString()));
-            lore.add(plugin.getColor().color("&2&lDuel: &a" + (tournament.getTeams() ? "2vs2" : "1vs1")));
-            lore.add(plugin.getColor().color("&2&lTijd: &a" + tournament.timeString()));
 
-            gui.setItem(x, item(plugin.getColor().color("&2&lGeregistreerd toernooi"), "WOOL", 1, 4, lore));
+            if (tournament.canRegister()) {
+                ArrayList<String> lore = new ArrayList<>();
+                lore.add(plugin.getColor().color("&2&lDatum: &a" + tournament.dateString()));
+                lore.add(plugin.getColor().color("&2&lDuel: &a" + (tournament.getTeams() ? "2vs2" : "1vs1")));
+                lore.add(plugin.getColor().color("&2&lTijd: &a" + tournament.timeString()));
+                lore.add(plugin.getColor().color("&0" + tournament.getUuid()));
+
+                ItemStack item = item(plugin.getColor().color("&2&lJe kan je inschrijven!"), "WOOL", 1, 13, lore);
+
+                gui.setItem(x, item);
+            } else {
+                ArrayList<String> lore = new ArrayList<>();
+                lore.add(plugin.getColor().color("&2&lDatum: &a" + tournament.dateString()));
+                lore.add(plugin.getColor().color("&2&lDuel: &a" + (tournament.getTeams() ? "2vs2" : "1vs1")));
+                lore.add(plugin.getColor().color("&2&lTijd: &a" + tournament.timeString()));
+                lore.add(plugin.getColor().color("&0" + tournament.getUuid()));
+
+                gui.setItem(x, item(plugin.getColor().color("&4&lJe kan inschrijven over: &c" + tournament.timeTillRegisterIsOpen()), "WOOL", 1, 14, lore));
+            }
             x++;
         }
 
@@ -126,6 +140,7 @@ public class GUI {
         ArrayList<String> list = new ArrayList<>();
 
         list.add(plugin.getColor().colorPrefix("&9&lKalender"));
+        list.add(plugin.getColor().colorPrefix("&9&lRegistratie"));
 
         return list;
     }
