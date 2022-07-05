@@ -1,6 +1,7 @@
 package io.github.deechtezeeuw.syandriatournament.listeners;
 
 import io.github.deechtezeeuw.syandriatournament.SyandriaTournament;
+import io.github.deechtezeeuw.syandriatournament.utils.GUI;
 import net.citizensnpcs.api.CitizensAPI;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -20,10 +21,12 @@ public class PlayerInteractEntity implements Listener {
         // Check if entity is an npc from citizens
         if (e.getHand().equals(EquipmentSlot.HAND) && CitizensAPI.getNPCRegistry().isNPC(entity) && plugin.getConfigurationManager().getNpc().list.contains(CitizensAPI.getNPCRegistry().getNPC(entity).getUniqueId())) {
             // Open an inventory with all tournaments of today
-            if (plugin.getTournamentManager().isThereAnTournamentToday()) {
+            if (!plugin.getTournamentManager().isThereAnTournamentToday()) {
                 player.sendMessage(plugin.getColor().colorPrefix("&cEr zijn geen toernooien om in te schrijven"));
                 return;
             }
+
+            new GUI().openRegistry(player);
         }
     }
 }

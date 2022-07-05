@@ -68,6 +68,49 @@ public class GUI {
         player.openInventory(gui);
     }
 
+    public void openRegistry(Player player) {
+        ArrayList<Tournament> tournaments = plugin.getTournamentManager().getTodaysTournaments();
+        int size = 9;
+
+        if (tournaments.size() > 9) {
+            size = 18;
+        } else if (tournaments.size() > 18) {
+            size = 27;
+        } else if (tournaments.size() > 27) {
+            size = 36;
+        } else if (tournaments.size() > 36) {
+            size = 45;
+        } else if (tournaments.size() > 45) {
+            size = 54;
+        }
+
+        Inventory gui = Bukkit.getServer().createInventory(
+                player,
+                size,
+                plugin.getColor().colorPrefix("&9&lRegistratie")
+        );
+
+        // Black background
+        for (int i = 0; i < size;i++) {
+            gui.setItem(i, item(" ", "STAINED_GLASS_PANE", 1, 15, new ArrayList<>()));
+        }
+
+        int x = 0;
+        for (Tournament tournament : plugin.getTournamentManager().getTodaysTournaments()) {
+            if (x > size) break;
+            ArrayList<String> lore = new ArrayList<>();
+            lore.add(plugin.getColor().color("&2&lDatum: &a" + tournament.dateString()));
+            lore.add(plugin.getColor().color("&2&lDuel: &a" + (tournament.getTeams() ? "2vs2" : "1vs1")));
+            lore.add(plugin.getColor().color("&2&lTijd: &a" + tournament.timeString()));
+
+            gui.setItem(x, item(plugin.getColor().color("&2&lGeregistreerd toernooi"), "WOOL", 1, 4, lore));
+            x++;
+        }
+
+
+        player.openInventory(gui);
+    }
+
     public ItemStack item(String title, String material, Integer amount, Integer itemShort, ArrayList<String> lore) {
         ItemStack item = new ItemStack(Material.valueOf(material), amount, itemShort.shortValue());
         ItemMeta MetaItem = item.getItemMeta();

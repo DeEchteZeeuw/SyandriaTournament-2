@@ -71,11 +71,29 @@ public class TournamentManager {
     public boolean isThereAnTournamentToday() {
         // Check if there are tournaments
         if (isThereAnTournament()) {
-            if (getArrayRegistreredTournaments().size() > 0 && getArrayRegistreredTournaments().get(0).getDate().getDayOfMonth() == LocalDateTime.now().getDayOfMonth()) {
-                return true;
+            if (isActiveTournament()) return true;
+            for (Tournament tournament : getArrayRegistreredTournaments()) {
+                if (tournament.getDate().getDayOfMonth() == LocalDateTime.now().getDayOfMonth()) return true;
             }
         }
         return false;
+    }
+
+    // Get todays tournaments
+    public ArrayList<Tournament> getTodaysTournaments() {
+        ArrayList<Tournament> tournaments = new ArrayList<>();
+
+        if (isActiveTournament()) tournaments.add(getCurrentTournament());
+
+        for (Tournament tournament : getArrayRegistreredTournaments()) {
+            if (tournament.getDate().getDayOfMonth() != LocalDateTime.now().getDayOfMonth()) continue;
+            if (tournament.getDate().getHour() <= LocalDateTime.now().getHour() && tournament.getDate().getMinute() <= LocalDateTime.now().getMinute()) continue;
+            tournaments.add(tournament);
+        }
+
+        tournaments.sort((Tournament a , Tournament b) -> a.getDate().compareTo(b.getDate()));
+
+        return tournaments;
     }
 
     // See if there is an active tournament
