@@ -1,9 +1,6 @@
 package io.github.deechtezeeuw.syandriatournament;
 
-import io.github.deechtezeeuw.syandriatournament.managers.CommandManager;
-import io.github.deechtezeeuw.syandriatournament.managers.ConfigurationManager;
-import io.github.deechtezeeuw.syandriatournament.managers.EventManager;
-import io.github.deechtezeeuw.syandriatournament.managers.TournamentManager;
+import io.github.deechtezeeuw.syandriatournament.managers.*;
 import io.github.deechtezeeuw.syandriatournament.utils.GUI;
 import io.github.deechtezeeuw.syandriatournament.utils.TextColor;
 import org.bukkit.command.ConsoleCommandSender;
@@ -21,6 +18,7 @@ public final class SyandriaTournament extends JavaPlugin {
     private CommandManager commandManager;
     private ConfigurationManager configurationManager;
     private EventManager eventManager;
+    private KitsManager kitsManager;
 
     // GUI
     private GUI gui;
@@ -39,6 +37,7 @@ public final class SyandriaTournament extends JavaPlugin {
         commandManager.setup();
         configurationManager = new ConfigurationManager();
         eventManager = new EventManager();
+        kitsManager = new KitsManager();
 
         // GUI util
         gui = new GUI();
@@ -88,5 +87,9 @@ public final class SyandriaTournament extends JavaPlugin {
             return false;
         }
         return true;
+    }
+
+    public KitsManager getKitsManager() {
+        return kitsManager;
     }
 }
