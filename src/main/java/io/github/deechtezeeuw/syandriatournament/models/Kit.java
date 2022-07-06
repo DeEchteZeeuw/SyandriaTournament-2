@@ -65,4 +65,18 @@ public class Kit {
 
         player.getInventory().setContents((ItemStack[]) others.toArray());
     }
+
+    public Kit defaultKit() {
+        this.helmet = new ItemStack(Material.DIAMOND_HELMET);
+        this.chestplate = new ItemStack(Material.DIAMOND_CHESTPLATE);
+        this.leggings = new ItemStack(Material.DIAMOND_LEGGINGS);
+        this.boots = new ItemStack(Material.DIAMOND_BOOTS);
+
+        this.others.add(new ItemStack(Material.DIAMOND_SWORD));
+        this.others.add(new ItemStack(Material.BOW));
+        this.others.add(new ItemStack(Material.ARROW, 64));
+        this.others.add(new ItemStack(Material.COOKED_BEEF, 16));
+
+        return this;
+    }
 }
