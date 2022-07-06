@@ -34,7 +34,23 @@ tournaments:
           maximum: 16
       time: "20:00"
   tuesday:
+    0:
+      settings:
+        price: 5
+        teams: false
+        players:
+          minimum: 4
+          maximum: 16
+      time: "19:00"
   wednesday:
+    0:
+      settings:
+        price: 5
+        teams: false
+        players:
+          minimum: 4
+          maximum: 16
+      time: "19:00"
   thursday:
     0:
       settings:

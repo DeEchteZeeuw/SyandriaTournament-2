@@ -579,6 +579,25 @@ public class Tournament {
             // Teams
         } else {
             // Solos
+            // Check if participants if 1
+            if (participantPlayers.size() == 1) {
+                Bukkit.broadcastMessage(plugin.getColor().colorPrefix("&aHet toernooi in &2&lSyandria &ais gewonnen door &2&l" + Bukkit.getServer().getPlayer(participantPlayers.get(0)).getDisplayName() + "&a!"));
+
+                Player player = Bukkit.getServer().getPlayer(participantPlayers.get(0));
+
+                if (this.getLockerRoomManager().hasInventory(player.getUniqueId())) {
+                    player.getInventory().setContents(this.getLockerRoomManager().getInventory(player.getUniqueId()));
+                    this.getLockerRoomManager().removeInventory(player.getUniqueId());
+                }
+
+                if (this.getLockerRoomManager().hasLocation(player.getUniqueId())) {
+                    player.teleport(this.getLockerRoomManager().getLocation(player.getUniqueId()));
+                    this.getLockerRoomManager().removeLocation(player.getUniqueId());
+                }
+
+                plugin.getTournamentManager().pickNextTournament();
+                return;
+            }
             // Check if there are three participants waiting
             if (getWaitingSize() % 2 == 0) {
                 // Set 3 into battle
