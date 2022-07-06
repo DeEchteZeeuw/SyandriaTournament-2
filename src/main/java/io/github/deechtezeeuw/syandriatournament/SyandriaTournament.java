@@ -17,6 +17,7 @@ public final class SyandriaTournament extends JavaPlugin {
     private TournamentManager tournamentManager;
     private CommandManager commandManager;
     private ConfigurationManager configurationManager;
+    private ArenaManager arenaManager;
     private EventManager eventManager;
     private KitsManager kitsManager;
 
@@ -36,6 +37,7 @@ public final class SyandriaTournament extends JavaPlugin {
         commandManager = new CommandManager();
         commandManager.setup();
         configurationManager = new ConfigurationManager();
+        arenaManager = new ArenaManager();
         eventManager = new EventManager();
         kitsManager = new KitsManager();
 
@@ -91,5 +93,9 @@ public final class SyandriaTournament extends JavaPlugin {
 
     public KitsManager getKitsManager() {
         return kitsManager;
+    }
+
+    public ArenaManager getArenaManager() {
+        return arenaManager;
     }
 }

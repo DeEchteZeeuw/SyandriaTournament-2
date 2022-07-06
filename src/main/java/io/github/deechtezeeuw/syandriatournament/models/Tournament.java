@@ -533,6 +533,8 @@ public class Tournament {
                 lockerRoomManager.storeLocation(fighterOne, Bukkit.getServer().getPlayer(fighterOne).getLocation());
                 // Give kit
                 plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterOne), "default");
+                // Send to the arena
+                Bukkit.getServer().getPlayer(fighterOne).teleport(plugin.getArenaManager().getFighterOne());
 
                 // FighterTwo
                 UUID fighterTwo = getWaitingPlayers().get( (int)(Math.random() * getWaitingSize()));
@@ -546,6 +548,14 @@ public class Tournament {
                 lockerRoomManager.storeLocation(fighterTwo, Bukkit.getServer().getPlayer(fighterTwo).getLocation());
                 // Give kit
                 plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterTwo), "default");
+                // Send to arena
+                Bukkit.getServer().getPlayer(fighterTwo).teleport(plugin.getArenaManager().getFighterTwo());
+
+                for (UUID uuid : participantPlayers) {
+                    if (Bukkit.getServer().getPlayer(uuid) != null) {
+                        Bukkit.getServer().getPlayer(uuid).sendMessage(plugin.getColor().colorPrefix("&aRonde &2&l" + round + "&a: &2&l" + Bukkit.getServer().getPlayer(fighterOne).getDisplayName() + " &avs &2&l" + Bukkit.getServer().getPlayer(fighterTwo).getDisplayName() + "&a!"));
+                    }
+                }
             }
         }
     }
