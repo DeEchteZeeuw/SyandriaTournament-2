@@ -58,12 +58,12 @@ public class Kit {
     }
 
     public void setInventory(Player player) {
-        player.getInventory().setHelmet((helmet != null) ? helmet : null);
-        player.getInventory().setHelmet((chestplate != null) ? chestplate : null);
-        player.getInventory().setHelmet((leggings != null) ? leggings : null);
-        player.getInventory().setHelmet((boots != null) ? boots : null);
+        player.getInventory().setContents(others.toArray(new ItemStack[0]));
 
-        player.getInventory().setContents((ItemStack[]) others.toArray());
+        player.getInventory().setHelmet((helmet != null) ? helmet : null);
+        player.getInventory().setChestplate((chestplate != null) ? chestplate : null);
+        player.getInventory().setLeggings((leggings != null) ? leggings : null);
+        player.getInventory().setBoots((boots != null) ? boots : null);
     }
 
     public Kit defaultKit() {

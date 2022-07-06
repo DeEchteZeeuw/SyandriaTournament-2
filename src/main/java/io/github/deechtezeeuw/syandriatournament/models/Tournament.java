@@ -496,7 +496,8 @@ public class Tournament {
             }
         }
 
-        // Set all in wait
+        // Start battle
+        setBattle();
     }
 
     // Set new battle
@@ -516,7 +517,7 @@ public class Tournament {
         } else {
             // Solos
             // Check if there are three participants waiting
-            if (getWaitingSize() % 2 != 0) {
+            if (getWaitingSize() % 2 == 0) {
                 // Set 3 into battle
             } else {
                 // Set 2 into battle
