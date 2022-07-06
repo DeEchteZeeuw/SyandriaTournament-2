@@ -223,6 +223,21 @@ public class Tournament {
         this.participantPlayers = new ArrayList<>();
     }
 
+    // Add participant
+    public void addParticipant(UUID uuid) {
+        this.participantPlayers.add(uuid);
+    }
+
+    // Remove participant
+    public void removeParticipant(UUID uuid) {
+        this.participantPlayers.remove(uuid);
+    }
+
+    // Check if participant
+    public boolean isParticipant(UUID uuid) {
+        return this.participantPlayers.contains(uuid);
+    }
+
     /* Waiting functions */
     // Set player in waiting
     public void setParticipantInWaiting(UUID player) {
@@ -358,7 +373,42 @@ public class Tournament {
         this.fightingTeamFour = new ArrayList<>();
     }
 
+    // Is in battle
+    public boolean isInBattle(UUID uuid) {
+        return (getFightingTeamOne().contains(uuid) || getFightingTeamTwo().contains(uuid) || getFightingTeamThree().contains(uuid) || getFightingTeamFour().contains(uuid));
+    }
+
+    // Get battle size
+    public int battleSize() {
+        return this.getFightingTeamOne().size() + this.getFightingTeamTwo().size() + this.getFightingTeamThree().size() + this.getFightingTeamFour().size();
+    }
+
     /* Battle winner functions */
+    public void setBattleWinner(ArrayList<UUID> winner) {
+        String winners = "";
+        for (UUID uuid : winner) {
+            if (winners.length() > 0) {
+                winners += ", " + Bukkit.getServer().getPlayer(uuid).getDisplayName();
+            } else {
+                winners += Bukkit.getServer().getPlayer(uuid).getDisplayName();
+            }
+
+            addBattleWinner(uuid);
+        }
+
+        for (UUID uuid : participantPlayers) {
+            if (Bukkit.getServer().getPlayer(uuid) != null) {
+                Bukkit.getServer().getPlayer(uuid).sendMessage(plugin.getColor().colorPrefix("&aHet gevecht is gewonnen door &2&l" + winners + "&a!"));
+            }
+        }
+
+        resetFightingTeamOne();
+        resetFightingTeamTwo();
+        resetFightingTeamThree();
+        resetFightingTeamFour();
+
+        setBattle();
+    }
     // Add to winners list
     public void addBattleWinner(UUID player) {
         this.battleWinners.add(player);
@@ -558,5 +608,20 @@ public class Tournament {
                 }
             }
         }
+    }
+
+    // Remove player from tournament
+    public void removePlayer(UUID uuid) {
+        if (participantPlayers.contains(uuid)) removeParticipant(uuid);
+        if (getWaitingPlayers().contains(uuid)) getWaitingPlayers().remove(uuid);
+        if (isInFightingTeamOne(uuid)) removeFromFightingTeamOne(uuid);
+        if (isInFightingTeamTwo(uuid)) removeFromFightingTeamTwo(uuid);
+        if (isInFightingTeamThree(uuid)) removeFromFightingTeamThree(uuid);
+        if (isInFightingTeamFour(uuid)) removeFromFightingTeamFour(uuid);
+        if (getBattleWinners().contains(uuid)) removeBattleWinner(uuid);
+    }
+
+    public LockerRoomManager getLockerRoomManager() {
+        return lockerRoomManager;
     }
 }
