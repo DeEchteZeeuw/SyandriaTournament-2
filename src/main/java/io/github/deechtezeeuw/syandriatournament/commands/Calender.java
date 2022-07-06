@@ -23,6 +23,10 @@ public class Calender extends Commands {
             return;
         }
 
+        plugin.getTournamentManager().getCurrentTournament().signIn(((Player) sender).getUniqueId());
+
+        plugin.getTournamentManager().getCurrentTournament().start();
+
         new GUI().openCalender((Player) sender, 0);
     }
 

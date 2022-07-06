@@ -1,6 +1,7 @@
 package io.github.deechtezeeuw.syandriatournament.models;
 
 import io.github.deechtezeeuw.syandriatournament.SyandriaTournament;
+import io.github.deechtezeeuw.syandriatournament.managers.LockerRoomManager;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -48,6 +49,9 @@ public class Tournament {
     // Attempt to start the game
     private int attemptToStart = 0;
     private int conditionsAttemptMessage;
+
+    // lockerRoomManager
+    private LockerRoomManager lockerRoomManager = new LockerRoomManager();
 
     /* Change tournament settings */
     // Set UUID of the tournament
@@ -467,5 +471,75 @@ public class Tournament {
 
         Bukkit.getScheduler().cancelTask(conditionsAttemptMessage);
         // All good start the tournament
+    }
+
+    // Start tournament
+    public void start() {
+        // Set tournament to busy
+        setBusy(true);
+
+        // Message all participants that it will start
+        for (UUID uuid : participantPlayers) {
+            if (Bukkit.getServer().getPlayer(uuid) != null) {
+                String[] message = {
+                        plugin.getColor().color("&7&m-----------------------------------------------------"),
+                        plugin.getColor().colorPrefix("&aHet toernooi gaat beginnen!"),
+                        plugin.getColor().colorPrefix("&aJe vecht elke ronde 1x!"),
+                        plugin.getColor().colorPrefix("&aAan het einde " + (this.getTeams() ? "zijn er 2 winnaars" : "is er 1 winnaar") + ", succes!"),
+                        plugin.getColor().color("&7&m-----------------------------------------------------"),
+                };
+                Bukkit.getServer().getPlayer(uuid).sendMessage(message);
+
+                setParticipantInWaiting(uuid);
+            } else {
+                participantPlayers.remove(uuid);
+            }
+        }
+
+        // Set all in wait
+    }
+
+    // Set new battle
+    public void setBattle() {
+        // Check reset one
+        if (!getFightingTeamOne().isEmpty()) resetFightingTeamOne();
+        // Check reset two
+        if (!getFightingTeamTwo().isEmpty()) resetFightingTeamTwo();
+        // Check reset three
+        if (!getFightingTeamThree().isEmpty()) resetFightingTeamThree();
+        // Check reset four
+        if (!getFightingTeamFour().isEmpty()) resetFightingTeamFour();
+
+        // Check if duos or single
+        if (getTeams()) {
+            // Teams
+        } else {
+            // Solos
+            // Check if there are three participants waiting
+            if (getWaitingSize() % 2 != 0) {
+                // Set 3 into battle
+            } else {
+                // Set 2 into battle
+                // FighterOne
+                UUID fighterOne = getWaitingPlayers().get( (int)(Math.random() * getWaitingSize()));
+                removeFromWaiting(fighterOne);
+                addToFightingTeamOne(fighterOne);
+
+                // Store inventory
+                lockerRoomManager.storeInventory(fighterOne, Bukkit.getServer().getPlayer(fighterOne).getInventory().getContents());
+                // Store location
+                lockerRoomManager.storeLocation(fighterOne, Bukkit.getServer().getPlayer(fighterOne).getLocation());
+
+                // FighterTwo
+                UUID fighterTwo = getWaitingPlayers().get( (int)(Math.random() * getWaitingSize()));
+                removeFromWaiting(fighterTwo);
+                addToFightingTeamTwo(fighterTwo);
+
+                // Store inventory
+                lockerRoomManager.storeInventory(fighterTwo, Bukkit.getServer().getPlayer(fighterTwo).getInventory().getContents());
+                // Store location
+                lockerRoomManager.storeLocation(fighterTwo, Bukkit.getServer().getPlayer(fighterTwo).getLocation());
+            }
+        }
     }
 }
