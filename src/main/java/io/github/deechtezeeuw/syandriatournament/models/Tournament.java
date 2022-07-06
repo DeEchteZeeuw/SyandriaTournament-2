@@ -3,6 +3,7 @@ package io.github.deechtezeeuw.syandriatournament.models;
 import io.github.deechtezeeuw.syandriatournament.SyandriaTournament;
 import io.github.deechtezeeuw.syandriatournament.managers.LockerRoomManager;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.time.LocalDateTime;
@@ -391,6 +392,18 @@ public class Tournament {
                 winners += ", " + Bukkit.getServer().getPlayer(uuid).getDisplayName();
             } else {
                 winners += Bukkit.getServer().getPlayer(uuid).getDisplayName();
+            }
+
+            Player player = Bukkit.getServer().getPlayer(uuid);
+
+            if (plugin.getTournamentManager().getCurrentTournament().getLockerRoomManager().hasInventory(player.getUniqueId())) {
+                player.getInventory().setContents(plugin.getTournamentManager().getCurrentTournament().getLockerRoomManager().getInventory(player.getUniqueId()));
+                plugin.getTournamentManager().getCurrentTournament().getLockerRoomManager().removeInventory(player.getUniqueId());
+            }
+
+            if (plugin.getTournamentManager().getCurrentTournament().getLockerRoomManager().hasLocation(player.getUniqueId())) {
+                player.teleport(plugin.getTournamentManager().getCurrentTournament().getLockerRoomManager().getLocation(player.getUniqueId()));
+                plugin.getTournamentManager().getCurrentTournament().getLockerRoomManager().removeLocation(player.getUniqueId());
             }
 
             addBattleWinner(uuid);
