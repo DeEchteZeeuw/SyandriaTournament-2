@@ -527,8 +527,11 @@ public class Tournament {
 
                 // Store inventory
                 lockerRoomManager.storeInventory(fighterOne, Bukkit.getServer().getPlayer(fighterOne).getInventory().getContents());
+                Bukkit.getServer().getPlayer(fighterOne).getInventory().clear();
                 // Store location
                 lockerRoomManager.storeLocation(fighterOne, Bukkit.getServer().getPlayer(fighterOne).getLocation());
+                // Give kit
+                plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterOne), "default");
 
                 // FighterTwo
                 UUID fighterTwo = getWaitingPlayers().get( (int)(Math.random() * getWaitingSize()));
@@ -537,8 +540,11 @@ public class Tournament {
 
                 // Store inventory
                 lockerRoomManager.storeInventory(fighterTwo, Bukkit.getServer().getPlayer(fighterTwo).getInventory().getContents());
+                Bukkit.getServer().getPlayer(fighterTwo).getInventory().clear();
                 // Store location
                 lockerRoomManager.storeLocation(fighterTwo, Bukkit.getServer().getPlayer(fighterTwo).getLocation());
+                // Give kit
+                plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterTwo), "default");
             }
         }
     }
