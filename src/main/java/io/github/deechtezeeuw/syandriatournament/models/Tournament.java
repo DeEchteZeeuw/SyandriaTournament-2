@@ -2,6 +2,7 @@ package io.github.deechtezeeuw.syandriatournament.models;
 
 import io.github.deechtezeeuw.syandriatournament.SyandriaTournament;
 import org.bukkit.Bukkit;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -43,6 +44,10 @@ public class Tournament {
 
     // Array with IDS of message loopings
     private ArrayList<Integer> messageLoops = new ArrayList<>();
+
+    // Attempt to start the game
+    private int attemptToStart = 0;
+    private int conditionsAttemptMessage;
 
     /* Change tournament settings */
     // Set UUID of the tournament
@@ -409,11 +414,58 @@ public class Tournament {
             this.messageLoops.add(Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
                 public void run() {
                     // Start game
-                    setBusy(true);
+                    conditionCheck();
                 }
             }, 20L * (int) ChronoUnit.SECONDS.between(LocalDateTime.now(), this.date)));
         } else {
-            setBusy(true);
+            conditionCheck();
         }
+    }
+
+    // Check if the conditions of the tournament have been met.
+    public void conditionCheck() {
+        // Check if the minimum of participants has been reached AND check if the battles are correct for the first round
+        if (this.participantPlayers.size() < this.minimumPlayers || (this.teams ? participantPlayers.size() % 4 != 0 : this.participantPlayers.size() % 2 != 0)) {
+            new BukkitRunnable() {
+                int count = 0;
+                @Override
+                public void run() {
+                    if (participantPlayers.size() >= minimumPlayers && (teams ? participantPlayers.size() % 4 == 0 : participantPlayers.size() % 2 == 0)) {
+                        cancel();
+                        // All good start the tournament
+                        return;
+                    }
+
+                    for (UUID uuid : participantPlayers) {
+                        if (Bukkit.getServer().getPlayer(uuid) != null) {
+                            if (count == 0) {
+                                Bukkit.getServer().getPlayer(uuid).sendMessage(plugin.getColor().colorPrefix("&cHet toernooi kan pas beginnen bij een evenaantal spelers voor de eerste ronde en bij een minimum van &4&l" + minimumPlayers + " &cis dit na &4&l10 &cminuten nog niet het geval dan word het toernooi gestaakt."));
+                            }
+
+                            if (count == 300) {
+                                Bukkit.getServer().getPlayer(uuid).sendMessage(plugin.getColor().colorPrefix("&cHet toernooi kan pas beginnen bij een evenaantal spelers voor de eerste ronde en bij een minimum van &4&l" + minimumPlayers + " &cis dit na &4&l5 &cminuten nog niet het geval dan word het toernooi gestaakt."));
+                            }
+
+                            if (count == 480) {
+                                Bukkit.getServer().getPlayer(uuid).sendMessage(plugin.getColor().colorPrefix("&cHet toernooi kan pas beginnen bij een evenaantal spelers voor de eerste ronde en bij een minimum van &4&l" + minimumPlayers + " &cis dit na &4&l2 &cminuten nog niet het geval dan word het toernooi gestaakt."));
+                            }
+
+                            if (count == 540) {
+                                Bukkit.getServer().getPlayer(uuid).sendMessage(plugin.getColor().colorPrefix("&cHet toernooi kan pas beginnen bij een evenaantal spelers voor de eerste ronde en bij een minimum van &4&l" + minimumPlayers + " &cis dit na &4&l1 &cminuut nog niet het geval dan word het toernooi gestaakt."));
+                            }
+
+                            if (count == 600) {
+                                Bukkit.getServer().getPlayer(uuid).sendMessage(plugin.getColor().colorPrefix("&cHet toernooi is gestaakt!"));
+                            }
+                        }
+                    }
+                    count++;
+                }
+            }.runTaskTimer(plugin, 0, 20L);
+            return;
+        }
+
+        Bukkit.getScheduler().cancelTask(conditionsAttemptMessage);
+        // All good start the tournament
     }
 }
