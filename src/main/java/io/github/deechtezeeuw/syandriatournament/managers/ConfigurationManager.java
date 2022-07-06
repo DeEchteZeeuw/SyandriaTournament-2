@@ -1,6 +1,7 @@
 package io.github.deechtezeeuw.syandriatournament.managers;
 
 import io.github.deechtezeeuw.syandriatournament.SyandriaTournament;
+import io.github.deechtezeeuw.syandriatournament.configurations.Kits;
 import io.github.deechtezeeuw.syandriatournament.configurations.Npc;
 import io.github.deechtezeeuw.syandriatournament.configurations.Tournaments;
 
@@ -9,6 +10,7 @@ import java.io.File;
 public class ConfigurationManager {
     private Tournaments tournaments;
     private Npc npc;
+    private Kits kits;
 
     public ConfigurationManager() {
         // Check if configuration folder exists
@@ -17,6 +19,7 @@ public class ConfigurationManager {
 
         this.tournaments = new Tournaments();
         this.npc = new Npc();
+        this.kits = new Kits();
     }
 
     public Tournaments getTournaments() {
