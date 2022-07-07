@@ -15,3 +15,33 @@
 #        |___/
 #
 kits:
+  ironBastard:
+    0:
+      material: "IRON_HELMET"
+      amount: 1
+      displayname: "&fIron&7Bastard"
+    1:
+      material: "IRON_CHESTPLATE"
+      amount: 1
+      displayname: "&fIron&7Chestplate"
+    2:
+      material: "IRON_LEGGINGS"
+      amount: 1
+      displayname: "&fIron&7Leggings"
+    3:
+      material: "IRON_BOOTS"
+      amount: 1
+      displayname: "&fIron&7Boots"
+    4:
+      material: "IRON_SWORD"
+      amount: 1
+      displayname: "&fIron&7Sword"
+    5:
+      material: "COOKED_BEEF"
+      amount: 10
+      displayname: "&6Biefstuk"
+  derp:
+    0:
+      material: "STICK"
+      amount: 1
+      displayname: "&cDurp"
