@@ -15,6 +15,8 @@ public class ArenaManager {
 
     public void setFighterOne(Location fighterOne) {
         this.fighterOne = new Location(Bukkit.getServer().getWorlds().get(0), 350, 65, 517);
+
+        fighterOne.
     }
 
     public Location getFighterTwo() {
