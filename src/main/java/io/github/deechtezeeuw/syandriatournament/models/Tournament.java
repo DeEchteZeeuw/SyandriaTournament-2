@@ -505,6 +505,8 @@ public class Tournament {
 
             Player player = Bukkit.getServer().getPlayer(uuid);
 
+            player.getInventory().clear();
+
             if (plugin.getTournamentManager().getCurrentTournament().getLockerRoomManager().hasInventory(player.getUniqueId())) {
                 player.getInventory().setContents(plugin.getTournamentManager().getCurrentTournament().getLockerRoomManager().getInventory(player.getUniqueId()));
                 plugin.getTournamentManager().getCurrentTournament().getLockerRoomManager().removeInventory(player.getUniqueId());
@@ -975,6 +977,8 @@ public class Tournament {
 
         Player player = Bukkit.getServer().getPlayer(uuid);
 
+        player.getInventory().clear();
+
         if (plugin.getTournamentManager().getCurrentTournament().getLockerRoomManager().hasInventory(player.getUniqueId())) {
             player.getInventory().setContents(plugin.getTournamentManager().getCurrentTournament().getLockerRoomManager().getInventory(player.getUniqueId()));
             plugin.getTournamentManager().getCurrentTournament().getLockerRoomManager().removeInventory(player.getUniqueId());
@@ -1006,6 +1010,8 @@ public class Tournament {
                     player.teleport(this.getLockerRoomManager().getLocation(player.getUniqueId()));
                     this.getLockerRoomManager().removeLocation(player.getUniqueId());
                 }
+
+                player.getInventory().addItem(new Pecunia().give(price));
             }
             Bukkit.broadcastMessage(plugin.getColor().colorPrefix("&aHet toernooi in &2&lSyandria &ais gewonnen door &2&l" + winners.toString() + "&a!"));
         } else {
@@ -1022,6 +1028,8 @@ public class Tournament {
                 player.teleport(this.getLockerRoomManager().getLocation(player.getUniqueId()));
                 this.getLockerRoomManager().removeLocation(player.getUniqueId());
             }
+
+            player.getInventory().addItem(new Pecunia().give(price));
         }
 
         plugin.getTournamentManager().pickNextTournament();
