@@ -37,9 +37,13 @@ public class Tournament {
 
     // Current battle (Players who are in the current battle)
     private ArrayList<UUID> fightingTeamOne = new ArrayList<>();
+    private ArrayList<UUID> deadFightingTeamsOne = new ArrayList<>();
     private ArrayList<UUID> fightingTeamTwo = new ArrayList<>();
+    private ArrayList<UUID> deadFightingTeamsTwo = new ArrayList<>();
     private ArrayList<UUID> fightingTeamThree = new ArrayList<>();
+    private ArrayList<UUID> deadFightingTeamsThree = new ArrayList<>();
     private ArrayList<UUID> fightingTeamFour = new ArrayList<>();
+    private ArrayList<UUID> deadFightingTeamsFour = new ArrayList<>();
 
     // Battle winners (Players who won there fight and are waiting to go to the next round)
     private ArrayList<UUID> battleWinners = new ArrayList<>();
@@ -380,6 +384,55 @@ public class Tournament {
         this.fightingTeamFour = new ArrayList<>();
     }
 
+    // Dead people teams
+    public ArrayList<UUID> getDeadTeamsOne() {
+        return deadFightingTeamsOne;
+    }
+
+    public void addDeadTeamsOne(UUID uuid) {
+        this.deadFightingTeamsOne.add(uuid);
+    }
+
+    public void resetDeadTeamsOne() {
+        this.deadFightingTeamsOne = new ArrayList<>();
+    }
+
+    public ArrayList<UUID> getDeadTeamsTwo() {
+        return deadFightingTeamsTwo;
+    }
+
+    public void addDeadTeamsTwo(UUID uuid) {
+        this.deadFightingTeamsTwo.add(uuid);
+    }
+
+    public void resetDeadTeamsTwo() {
+        this.deadFightingTeamsTwo = new ArrayList<>();
+    }
+
+    public ArrayList<UUID> getDeadTeamsThree() {
+        return deadFightingTeamsThree;
+    }
+
+    public void addDeadTeamsThree(UUID uuid) {
+        this.deadFightingTeamsThree.add(uuid);
+    }
+
+    public void resetDeadTeamsThree() {
+        this.deadFightingTeamsThree = new ArrayList<>();
+    }
+
+    public ArrayList<UUID> getDeadTeamsFour() {
+        return deadFightingTeamsFour;
+    }
+
+    public void addDeadTeamsFour(UUID uuid) {
+        this.deadFightingTeamsFour.add(uuid);
+    }
+
+    public void resetDeadTeamsFour() {
+        this.deadFightingTeamsFour = new ArrayList<>();
+    }
+
     // Is in battle
     public boolean isInBattle(UUID uuid) {
         return (getFightingTeamOne().contains(uuid) || getFightingTeamTwo().contains(uuid) || getFightingTeamThree().contains(uuid) || getFightingTeamFour().contains(uuid));
@@ -415,6 +468,33 @@ public class Tournament {
 
     /* Battle winner functions */
     public void setBattleWinner(ArrayList<UUID> winner) {
+        // Check if battle was teams
+        if (this.teams) {
+            if (winner.size() == 1) {
+                // Check which team the winner was from
+                if (getFightingTeamOne().contains(winner)) {
+                    for (UUID uuid : getDeadTeamsOne()) {
+                        winner.add(uuid);
+                    }
+                }
+                if (getFightingTeamTwo().contains(winner)) {
+                    for (UUID uuid : getDeadTeamsTwo()) {
+                        winner.add(uuid);
+                    }
+                }
+                if (getFightingTeamThree().contains(winner)) {
+                    for (UUID uuid : getDeadTeamsThree()) {
+                        winner.add(uuid);
+                    }
+                }
+                if (getFightingTeamFour().contains(winner)) {
+                    for (UUID uuid : getDeadTeamsFour()) {
+                        winner.add(uuid);
+                    }
+                }
+            }
+        }
+
         String winners = "";
         for (UUID uuid : winner) {
             if (winners.length() > 0) {
@@ -445,9 +525,13 @@ public class Tournament {
         }
 
         resetFightingTeamOne();
+        resetDeadTeamsOne();
         resetFightingTeamTwo();
+        resetDeadTeamsTwo();
         resetFightingTeamThree();
+        resetDeadTeamsThree();
         resetFightingTeamFour();
+        resetDeadTeamsFour();
 
         setBattle();
     }
@@ -596,13 +680,17 @@ public class Tournament {
     // Set new battle
     public void setBattle() {
         // Check reset one
-        if (!getFightingTeamOne().isEmpty()) resetFightingTeamOne();
+        if (!getFightingTeamOne().isEmpty() || getFightingTeamOne().size() > 0) resetFightingTeamOne();
+        if (!getDeadTeamsOne().isEmpty() || getDeadTeamsOne().size() > 0) resetDeadTeamsOne();
         // Check reset two
-        if (!getFightingTeamTwo().isEmpty()) resetFightingTeamTwo();
+        if (!getFightingTeamTwo().isEmpty() || getFightingTeamTwo().size() > 0) resetFightingTeamTwo();
+        if (!getDeadTeamsTwo().isEmpty() || getDeadTeamsTwo().size() > 0) resetDeadTeamsTwo();
         // Check reset three
-        if (!getFightingTeamThree().isEmpty()) resetFightingTeamThree();
+        if (!getFightingTeamThree().isEmpty() || getFightingTeamThree().size() > 0) resetFightingTeamThree();
+        if (!getDeadTeamsThree().isEmpty() || getDeadTeamsThree().size() > 0) resetDeadTeamsThree();
         // Check reset four
-        if (!getFightingTeamFour().isEmpty()) resetFightingTeamFour();
+        if (!getFightingTeamFour().isEmpty() || getFightingTeamFour().size() > 0) resetFightingTeamFour();
+        if (!getDeadTeamsFour().isEmpty() || getDeadTeamsFour().size() > 0) resetFightingTeamFour();
 
         // Check if duos or single
         if (getTeams()) {
