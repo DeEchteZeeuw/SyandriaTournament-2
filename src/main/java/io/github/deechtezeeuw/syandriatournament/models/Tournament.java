@@ -20,6 +20,8 @@ public class Tournament {
     private boolean busy = false;
     private boolean teams = false;
 
+    private boolean fromConfig = false;
+
     private int price = 1;
 
     private int minimumPlayers = 8;
@@ -87,6 +89,14 @@ public class Tournament {
     // Get teams value of the tournament
     public boolean getTeams() {
         return teams;
+    }
+
+    public void setFromConfig(boolean fromConfig) {
+        this.fromConfig = fromConfig;
+    }
+
+    public boolean isFromConfig() {
+        return fromConfig;
     }
 
     // Set price of the tournament
