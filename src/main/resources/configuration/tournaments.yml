@@ -21,6 +21,7 @@ tournaments:
       settings:
         price: 5
         teams: false
+        kit: "ironBastard"
         players:
           minimum: 4
           maximum: 16
@@ -29,6 +30,7 @@ tournaments:
       settings:
         price: 20
         teams: false
+        kit: "ironBastard"
         players:
           minimum: 4
           maximum: 16
@@ -38,6 +40,7 @@ tournaments:
       settings:
         price: 5
         teams: false
+        kit: "ironBastard"
         players:
           minimum: 4
           maximum: 16
@@ -47,6 +50,7 @@ tournaments:
       settings:
         price: 5
         teams: false
+        kit: "ironBastard"
         players:
           minimum: 4
           maximum: 16
@@ -56,6 +60,7 @@ tournaments:
       settings:
         price: 5
         teams: false
+        kit: "ironBastard"
         players:
           minimum: 4
           maximum: 16
@@ -65,6 +70,7 @@ tournaments:
       settings:
         price: 5
         teams: false
+        kit: "ironBastard"
         players:
           minimum: 4
           maximum: 16
@@ -74,6 +80,7 @@ tournaments:
       settings:
         price: 5
         teams: false
+        kit: "ironBastard"
         players:
           minimum: 4
           maximum: 16
@@ -83,6 +90,7 @@ tournaments:
       settings:
         price: 5
         teams: false
+        kit: "ironBastard"
         players:
           minimum: 4
           maximum: 16
@@ -91,6 +99,7 @@ tournaments:
       settings:
         price: 5
         teams: false
+        kit: "ironBastard"
         players:
           minimum: 4
           maximum: 16
@@ -99,6 +108,7 @@ tournaments:
       settings:
         price: 5
         teams: false
+        kit: "ironBastard"
         players:
           minimum: 4
           maximum: 16
