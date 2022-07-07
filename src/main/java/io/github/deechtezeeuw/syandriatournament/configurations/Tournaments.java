@@ -67,6 +67,9 @@ public class Tournaments extends Configuration{
                 boolean teams = getConfig().getBoolean("tournaments." + day + "." + tournamentNumber + ".settings.teams");
                 tournament.setTeams(teams);
 
+                String kit = (getConfig().getString("tournaments." + day + "." + tournamentNumber + ".settings.kit") == null) ? "default" : getConfig().getString("tournaments." + day + "." + tournamentNumber + ".settings.kit");
+                tournament.setKit(kit);
+
                 int minimumPlayers = getConfig().getInt("tournaments." + day + "." + tournamentNumber + ".settings.players.minimum");
                 if (minimumPlayers > 2) {
                     tournament.setMinimumPlayers(minimumPlayers);
