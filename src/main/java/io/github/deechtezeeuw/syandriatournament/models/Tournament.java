@@ -385,6 +385,29 @@ public class Tournament {
         return (getFightingTeamOne().contains(uuid) || getFightingTeamTwo().contains(uuid) || getFightingTeamThree().contains(uuid) || getFightingTeamFour().contains(uuid));
     }
 
+    // Get current battle players
+    public ArrayList<UUID> getBattle() {
+        ArrayList<UUID> battlers = new ArrayList<>();
+
+        for (UUID uuid : getFightingTeamOne()) {
+            battlers.add(uuid);
+        }
+
+        for (UUID uuid : getFightingTeamTwo()) {
+            battlers.add(uuid);
+        }
+
+        for (UUID uuid : getFightingTeamThree()) {
+            battlers.add(uuid);
+        }
+
+        for (UUID uuid : getFightingTeamFour()) {
+            battlers.add(uuid);
+        }
+
+        return battlers;
+    }
+
     // Get battle size
     public int battleSize() {
         return this.getFightingTeamOne().size() + this.getFightingTeamTwo().size() + this.getFightingTeamThree().size() + this.getFightingTeamFour().size();
@@ -540,6 +563,7 @@ public class Tournament {
 
         Bukkit.getScheduler().cancelTask(conditionsAttemptMessage);
         // All good start the tournament
+        start();
     }
 
     // Start tournament
@@ -860,6 +884,18 @@ public class Tournament {
         if (isInFightingTeamThree(uuid)) removeFromFightingTeamThree(uuid);
         if (isInFightingTeamFour(uuid)) removeFromFightingTeamFour(uuid);
         if (getBattleWinners().contains(uuid)) removeBattleWinner(uuid);
+
+        Player player = Bukkit.getServer().getPlayer(uuid);
+
+        if (plugin.getTournamentManager().getCurrentTournament().getLockerRoomManager().hasInventory(player.getUniqueId())) {
+            player.getInventory().setContents(plugin.getTournamentManager().getCurrentTournament().getLockerRoomManager().getInventory(player.getUniqueId()));
+            plugin.getTournamentManager().getCurrentTournament().getLockerRoomManager().removeInventory(player.getUniqueId());
+        }
+
+        if (plugin.getTournamentManager().getCurrentTournament().getLockerRoomManager().hasLocation(player.getUniqueId())) {
+            player.teleport(plugin.getTournamentManager().getCurrentTournament().getLockerRoomManager().getLocation(player.getUniqueId()));
+            plugin.getTournamentManager().getCurrentTournament().getLockerRoomManager().removeLocation(player.getUniqueId());
+        }
     }
 
     public LockerRoomManager getLockerRoomManager() {
