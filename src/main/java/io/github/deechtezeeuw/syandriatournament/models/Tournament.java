@@ -1099,4 +1099,60 @@ public class Tournament {
 
         plugin.getTournamentManager().pickNextTournament();
     }
+
+    public void forceStop() {
+        // Check if tournament is from config
+        if (isFromConfig()) {
+
+            for (UUID uuid : participantPlayers) {
+                if (Bukkit.getServer().getPlayer(uuid) != null) {
+                    Bukkit.getServer().getPlayer(uuid).sendMessage(plugin.getColor().colorPrefix("&cHet toernooi is geforceerd gestopt!"));
+                }
+            }
+
+            resetParticipants();
+            resetWaiting();
+            resetFightingTeamOne();
+            resetDeadTeamsOne();
+            resetFightingTeamTwo();
+            resetDeadTeamsTwo();
+            resetFightingTeamThree();
+            resetDeadTeamsThree();
+            resetFightingTeamFour();
+            resetDeadTeamsFour();
+            resetBattleWinners();
+
+            setBusy(false);
+            round = 1;
+
+            date = date.with(TemporalAdjusters.next(date.getDayOfWeek()));
+
+            for (int i : messageLoops) {
+                Bukkit.getServer().getScheduler().cancelTask(i);
+            }
+            messageLoops = new ArrayList<>();
+
+            Bukkit.getScheduler().cancelTask(conditionsAttemptMessage);
+            conditionsAttemptMessage = 0;
+
+            for (UUID keys : lockerRoomManager.getInventory().keySet()) {
+                if (Bukkit.getServer().getPlayer(keys) != null) {
+                    Bukkit.getServer().getPlayer(keys).getInventory().clear();
+                    Bukkit.getServer().getPlayer(keys).getInventory().setContents(lockerRoomManager.getInventory(keys));
+                }
+            }
+
+            for (UUID keys : lockerRoomManager.getLocation().keySet()) {
+                if (Bukkit.getServer().getPlayer(keys) != null) {
+                    Bukkit.getServer().getPlayer(keys).teleport(lockerRoomManager.getLocation(keys));
+                }
+            }
+
+            lockerRoomManager = new LockerRoomManager();
+
+            plugin.getTournamentManager().addRegisteredTournament(this.uuid, this);
+        }
+
+        plugin.getTournamentManager().pickNextTournament();
+    }
 }

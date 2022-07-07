@@ -40,9 +40,9 @@ public final class SyandriaTournament extends JavaPlugin {
         tournamentManager = new TournamentManager();
         commandManager = new CommandManager();
         commandManager.setup();
+        arenaManager = new ArenaManager();
         kitsManager = new KitsManager();
         configurationManager = new ConfigurationManager();
-        arenaManager = new ArenaManager();
         eventManager = new EventManager();
 
         // GUI util

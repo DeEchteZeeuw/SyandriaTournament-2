@@ -4,39 +4,21 @@
 #   / /\ \ | '__/ _ \ '_ \ / _` |
 #  / ____ \| | |  __/ | | | (_| |
 # /_/    \_\_|  \___|_| |_|\__,_|
-#
-#  _____                       _      _
-# /  ___|                     | |    (_)
-# \ `--. _   _  __ _ _ __   __| |_ __ _  __ _
-#  `--. \ | | |/ _` | '_ \ / _` | '__| |/ _` |
-# /\__/ / |_| | (_| | | | | (_| | |  | | (_| |
-# \____/ \__, |\__,_|_| |_|\__,_|_|  |_|\__,_|
-#         __/ |
-#        |___/
-#
 arena:
   world: "world"
   fighterOne:
     blockX: 0
     blockY: 0
     blockZ: 0
-    pitch: 0
-    yaw:
   fighterTwo:
     blockX: 0
     blockY: 0
     blockZ: 0
-    pitch: 0
-    yaw:
   fighterThree:
     blockX: 0
     blockY: 0
     blockZ: 0
-    pitch: 0
-    yaw:
   fighterFour:
     blockX: 0
     blockY: 0
     blockZ: 0
-    pitch: 0
-    yaw:

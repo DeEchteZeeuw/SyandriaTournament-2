@@ -1,8 +1,7 @@
 package io.github.deechtezeeuw.syandriatournament.managers;
 
 import io.github.deechtezeeuw.syandriatournament.SyandriaTournament;
-import io.github.deechtezeeuw.syandriatournament.commands.Calender;
-import io.github.deechtezeeuw.syandriatournament.commands.Commands;
+import io.github.deechtezeeuw.syandriatournament.commands.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,6 +11,7 @@ import org.bukkit.command.TabCompleter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class CommandManager implements CommandExecutor, TabCompleter {
     private final SyandriaTournament plugin = SyandriaTournament.getInstance();
@@ -26,8 +26,10 @@ public class CommandManager implements CommandExecutor, TabCompleter {
 
         // register subcommands
         commands.add(new Calender());
-//        commands.add(new Reload());
-//        commands.add(new Start());
+        commands.add(new SetSpawn());
+        commands.add(new Reload());
+        commands.add(new ForceStart());
+        commands.add(new ForceStop());
     }
 
     @Override
@@ -37,14 +39,37 @@ public class CommandManager implements CommandExecutor, TabCompleter {
 
         if (args.length == 1) {
             // main
-            if (sender.hasPermission("syandriatournament.calender")) {
+            if (sender.hasPermission("syandriatournament.calender") && "kalender".toLowerCase().startsWith(args[0].toLowerCase())) {
                 completions.add("kalender");
+            }
+
+            if (sender.hasPermission("syandriatournament.setspawn") && "setspawn".toLowerCase().startsWith(args[0].toLowerCase())) {
+                completions.add("setspawn");
+            }
+
+            if (sender.hasPermission("syandriatournament.reload") && "reload".toLowerCase().startsWith(args[0].toLowerCase())) {
+                completions.add("reload");
+            }
+
+            if (sender.hasPermission("syandriatournament.forcestart") && "forcestart".toLowerCase().startsWith(args[0].toLowerCase())) {
+                completions.add("forcestart");
+            }
+
+            if (sender.hasPermission("syandriatournament.forcestop") && "forcestop".toLowerCase().startsWith(args[0].toLowerCase())) {
+                completions.add("forcestop");
             }
         }
 
         if (args.length == 2) {
             // sub of sub
-
+            if (args[0].equalsIgnoreCase("setspawn")) {
+                if (sender.hasPermission("syandriatournament.setspawn")) {
+                    if ("first".toLowerCase().startsWith(args[1].toLowerCase())) { completions.add("first"); }
+                    if ("second".toLowerCase().startsWith(args[1].toLowerCase())) { completions.add("second"); }
+                    if ("third".toLowerCase().startsWith(args[1].toLowerCase())) { completions.add("third"); }
+                    if ("fourth".toLowerCase().startsWith(args[1].toLowerCase())) { completions.add("fourth"); }
+                }
+            }
         }
 
         return completions;
