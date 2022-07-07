@@ -118,6 +118,12 @@ public class Tournament {
     // Upper round
     public void nextRound() {
         this.round = this.round + 1;
+
+        for (UUID uuid : getBattleWinners()) {
+            setParticipantInWaiting(uuid);
+        }
+
+        resetBattleWinners();
     }
 
     // Set game date
@@ -578,10 +584,16 @@ public class Tournament {
         if (getTeams()) {
             // Teams
             // Check if participants is 2
-            if (participantPlayers.size() == 2) {
+            if (participantPlayers.size() <= 2) {
                 tournamentWin(true);
                 return;
             }
+            // Check if waiting is empty
+            if (getWaitingSize() == 0 && participantPlayers.size() > 0) {
+                nextRound();
+                return;
+            }
+
             // Check if there are 6 participants waiting
             if (getWaitingSize() % 4 != 0) {
                 // Check if the numbers are divisble by 4
@@ -738,6 +750,13 @@ public class Tournament {
                 tournamentWin(false);
                 return;
             }
+
+            // Check if waiting is empty
+            if (getWaitingSize() == 0 && participantPlayers.size() > 0) {
+                nextRound();
+                return;
+            }
+
             // Check if there are three participants waiting
             if (getWaitingSize() % 2 != 0) {
                 // Set 3 into battle
