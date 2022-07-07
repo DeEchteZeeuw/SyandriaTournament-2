@@ -41,4 +41,12 @@ public class LockerRoomManager {
     public void removeLocation(UUID uuid) {
         this.location.remove(uuid);
     }
+
+    public HashMap<UUID, ItemStack[]> getInventory() {
+        return inventory;
+    }
+
+    public HashMap<UUID, Location> getLocation() {
+        return location;
+    }
 }

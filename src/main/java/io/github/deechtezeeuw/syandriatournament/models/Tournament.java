@@ -6,11 +6,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.UUID;
+import java.time.temporal.TemporalAdjusters;
+import java.util.*;
 
 public class Tournament {
     private final SyandriaTournament plugin = SyandriaTournament.getInstance();
@@ -27,7 +27,7 @@ public class Tournament {
     private int minimumPlayers = 8;
     private int maximumPlayers = 16;
 
-    private int round = 0;
+    private int round = 1;
 
     private LocalDateTime date = LocalDateTime.now();
 
@@ -54,7 +54,6 @@ public class Tournament {
     private ArrayList<Integer> messageLoops = new ArrayList<>();
 
     // Attempt to start the game
-    private int attemptToStart = 0;
     private int conditionsAttemptMessage;
 
     // lockerRoomManager
@@ -1040,6 +1039,51 @@ public class Tournament {
             }
 
             player.getInventory().addItem(new Pecunia().give(price));
+        }
+
+        // Check if tournament is from config
+        if (isFromConfig()) {
+            resetParticipants();
+            resetWaiting();
+            resetFightingTeamOne();
+            resetDeadTeamsOne();
+            resetFightingTeamTwo();
+            resetDeadTeamsTwo();
+            resetFightingTeamThree();
+            resetDeadTeamsThree();
+            resetFightingTeamFour();
+            resetDeadTeamsFour();
+            resetBattleWinners();
+
+            setBusy(false);
+            round = 1;
+
+            date = date.with(TemporalAdjusters.next(date.getDayOfWeek()));
+
+            for (int i : messageLoops) {
+                Bukkit.getServer().getScheduler().cancelTask(i);
+            }
+            messageLoops = new ArrayList<>();
+
+            Bukkit.getScheduler().cancelTask(conditionsAttemptMessage);
+            conditionsAttemptMessage = 0;
+
+            for (UUID keys : lockerRoomManager.getInventory().keySet()) {
+                if (Bukkit.getServer().getPlayer(keys) != null) {
+                    Bukkit.getServer().getPlayer(keys).getInventory().clear();
+                    Bukkit.getServer().getPlayer(keys).getInventory().setContents(lockerRoomManager.getInventory(keys));
+                }
+            }
+
+            for (UUID keys : lockerRoomManager.getLocation().keySet()) {
+                if (Bukkit.getServer().getPlayer(keys) != null) {
+                    Bukkit.getServer().getPlayer(keys).teleport(lockerRoomManager.getLocation(keys));
+                }
+            }
+
+            lockerRoomManager = new LockerRoomManager();
+
+            plugin.getTournamentManager().addRegisteredTournament(this.uuid, this);
         }
 
         plugin.getTournamentManager().pickNextTournament();
