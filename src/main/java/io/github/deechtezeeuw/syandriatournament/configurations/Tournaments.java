@@ -132,6 +132,8 @@ public class Tournaments extends Configuration{
                 UUID uuid = UUID.randomUUID();
                 tournament.setUuid(uuid);
 
+                tournament.setFromConfig(true);
+
                 plugin.getTournamentManager().addRegisteredTournament(uuid, tournament);
             }
         }
