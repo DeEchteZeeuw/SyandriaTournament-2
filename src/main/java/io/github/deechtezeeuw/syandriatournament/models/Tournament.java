@@ -23,6 +23,7 @@ public class Tournament {
     private boolean fromConfig = false;
 
     private int price = 1;
+    private String kit = "default";
 
     private int minimumPlayers = 8;
     private int maximumPlayers = 16;
@@ -106,6 +107,16 @@ public class Tournament {
     // Get price of the tournament
     public int getPrice() {
         return this.price;
+    }
+
+    // Set kit of the tournament
+    public void setKit(String kit) {
+        this.kit = kit;
+    }
+
+    // Get kit of the tournament
+    public String getKit() {
+        return this.kit;
     }
 
     // Set minimum players of the tournament
