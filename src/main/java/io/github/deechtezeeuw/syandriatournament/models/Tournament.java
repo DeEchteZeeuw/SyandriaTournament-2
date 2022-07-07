@@ -581,26 +581,62 @@ public class Tournament {
             // Solos
             // Check if participants if 1
             if (participantPlayers.size() == 1) {
-                Bukkit.broadcastMessage(plugin.getColor().colorPrefix("&aHet toernooi in &2&lSyandria &ais gewonnen door &2&l" + Bukkit.getServer().getPlayer(participantPlayers.get(0)).getDisplayName() + "&a!"));
-
-                Player player = Bukkit.getServer().getPlayer(participantPlayers.get(0));
-
-                if (this.getLockerRoomManager().hasInventory(player.getUniqueId())) {
-                    player.getInventory().setContents(this.getLockerRoomManager().getInventory(player.getUniqueId()));
-                    this.getLockerRoomManager().removeInventory(player.getUniqueId());
-                }
-
-                if (this.getLockerRoomManager().hasLocation(player.getUniqueId())) {
-                    player.teleport(this.getLockerRoomManager().getLocation(player.getUniqueId()));
-                    this.getLockerRoomManager().removeLocation(player.getUniqueId());
-                }
-
-                plugin.getTournamentManager().pickNextTournament();
+                tournamentWin();
                 return;
             }
             // Check if there are three participants waiting
             if (getWaitingSize() % 2 == 0) {
                 // Set 3 into battle
+                // FighterOne
+                UUID fighterOne = getWaitingPlayers().get( (int)(Math.random() * getWaitingSize()));
+                removeFromWaiting(fighterOne);
+                addToFightingTeamOne(fighterOne);
+
+                // Store inventory
+                lockerRoomManager.storeInventory(fighterOne, Bukkit.getServer().getPlayer(fighterOne).getInventory().getContents());
+                Bukkit.getServer().getPlayer(fighterOne).getInventory().clear();
+                // Store location
+                lockerRoomManager.storeLocation(fighterOne, Bukkit.getServer().getPlayer(fighterOne).getLocation());
+                // Give kit
+                plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterOne), "default");
+                // Send to the arena
+                Bukkit.getServer().getPlayer(fighterOne).teleport(plugin.getArenaManager().getFighterOne());
+
+                // FighterTwo
+                UUID fighterTwo = getWaitingPlayers().get( (int)(Math.random() * getWaitingSize()));
+                removeFromWaiting(fighterTwo);
+                addToFightingTeamTwo(fighterTwo);
+
+                // Store inventory
+                lockerRoomManager.storeInventory(fighterTwo, Bukkit.getServer().getPlayer(fighterTwo).getInventory().getContents());
+                Bukkit.getServer().getPlayer(fighterTwo).getInventory().clear();
+                // Store location
+                lockerRoomManager.storeLocation(fighterTwo, Bukkit.getServer().getPlayer(fighterTwo).getLocation());
+                // Give kit
+                plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterTwo), "default");
+                // Send to arena
+                Bukkit.getServer().getPlayer(fighterTwo).teleport(plugin.getArenaManager().getFighterTwo());
+
+                // FighterThree
+                UUID fighterThree = getWaitingPlayers().get( (int)(Math.random() * getWaitingSize()));
+                removeFromWaiting(fighterThree);
+                addToFightingTeamTwo(fighterThree);
+
+                // Store inventory
+                lockerRoomManager.storeInventory(fighterThree, Bukkit.getServer().getPlayer(fighterThree).getInventory().getContents());
+                Bukkit.getServer().getPlayer(fighterThree).getInventory().clear();
+                // Store location
+                lockerRoomManager.storeLocation(fighterThree, Bukkit.getServer().getPlayer(fighterThree).getLocation());
+                // Give kit
+                plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterThree), "default");
+                // Send to arena
+                Bukkit.getServer().getPlayer(fighterThree).teleport(plugin.getArenaManager().getFighterThree());
+
+                for (UUID uuid : participantPlayers) {
+                    if (Bukkit.getServer().getPlayer(uuid) != null) {
+                        Bukkit.getServer().getPlayer(uuid).sendMessage(plugin.getColor().colorPrefix("&aRonde &2&l" + round + "&a: &2&l" + Bukkit.getServer().getPlayer(fighterOne).getDisplayName() + " &avs &2&l" + Bukkit.getServer().getPlayer(fighterTwo).getDisplayName() + " &avs &2&l" + Bukkit.getServer().getPlayer(fighterThree).getDisplayName() + "&a!"));
+                    }
+                }
             } else {
                 // Set 2 into battle
                 // FighterOne
@@ -655,5 +691,23 @@ public class Tournament {
 
     public LockerRoomManager getLockerRoomManager() {
         return lockerRoomManager;
+    }
+
+    public void tournamentWin() {
+        Bukkit.broadcastMessage(plugin.getColor().colorPrefix("&aHet toernooi in &2&lSyandria &ais gewonnen door &2&l" + Bukkit.getServer().getPlayer(participantPlayers.get(0)).getDisplayName() + "&a!"));
+
+        Player player = Bukkit.getServer().getPlayer(participantPlayers.get(0));
+
+        if (this.getLockerRoomManager().hasInventory(player.getUniqueId())) {
+            player.getInventory().setContents(this.getLockerRoomManager().getInventory(player.getUniqueId()));
+            this.getLockerRoomManager().removeInventory(player.getUniqueId());
+        }
+
+        if (this.getLockerRoomManager().hasLocation(player.getUniqueId())) {
+            player.teleport(this.getLockerRoomManager().getLocation(player.getUniqueId()));
+            this.getLockerRoomManager().removeLocation(player.getUniqueId());
+        }
+
+        plugin.getTournamentManager().pickNextTournament();
     }
 }
