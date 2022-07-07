@@ -744,7 +744,7 @@ public class Tournament {
                     // Store location
                     lockerRoomManager.storeLocation(fighterOne, Bukkit.getServer().getPlayer(fighterOne).getLocation());
                     // Give kit
-                    plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterOne), "default");
+                    plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterOne), kit);
                     // Send to the arena
                     Bukkit.getServer().getPlayer(fighterOne).teleport(plugin.getArenaManager().getFighterOne());
                 }
@@ -761,7 +761,7 @@ public class Tournament {
                     // Store location
                     lockerRoomManager.storeLocation(fighterTwo, Bukkit.getServer().getPlayer(fighterTwo).getLocation());
                     // Give kit
-                    plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterTwo), "default");
+                    plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterTwo), kit);
                     // Send to arena
                     Bukkit.getServer().getPlayer(fighterTwo).teleport(plugin.getArenaManager().getFighterTwo());
                 }
@@ -778,7 +778,7 @@ public class Tournament {
                     // Store location
                     lockerRoomManager.storeLocation(fighterThree, Bukkit.getServer().getPlayer(fighterThree).getLocation());
                     // Give kit
-                    plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterThree), "default");
+                    plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterThree), kit);
                     // Send to arena
                     Bukkit.getServer().getPlayer(fighterThree).teleport(plugin.getArenaManager().getFighterThree());
                 }
@@ -830,7 +830,7 @@ public class Tournament {
                     // Store location
                     lockerRoomManager.storeLocation(fighterOne, Bukkit.getServer().getPlayer(fighterOne).getLocation());
                     // Give kit
-                    plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterOne), "default");
+                    plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterOne), kit);
                     // Send to the arena
                     Bukkit.getServer().getPlayer(fighterOne).teleport(plugin.getArenaManager().getFighterOne());
                 }
@@ -847,7 +847,7 @@ public class Tournament {
                     // Store location
                     lockerRoomManager.storeLocation(fighterTwo, Bukkit.getServer().getPlayer(fighterTwo).getLocation());
                     // Give kit
-                    plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterTwo), "default");
+                    plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterTwo), kit);
                     // Send to arena
                     Bukkit.getServer().getPlayer(fighterTwo).teleport(plugin.getArenaManager().getFighterTwo());
                 }
@@ -905,7 +905,7 @@ public class Tournament {
                 // Store location
                 lockerRoomManager.storeLocation(fighterOne, Bukkit.getServer().getPlayer(fighterOne).getLocation());
                 // Give kit
-                plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterOne), "default");
+                plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterOne), kit);
                 // Send to the arena
                 Bukkit.getServer().getPlayer(fighterOne).teleport(plugin.getArenaManager().getFighterOne());
 
@@ -920,7 +920,7 @@ public class Tournament {
                 // Store location
                 lockerRoomManager.storeLocation(fighterTwo, Bukkit.getServer().getPlayer(fighterTwo).getLocation());
                 // Give kit
-                plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterTwo), "default");
+                plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterTwo), kit);
                 // Send to arena
                 Bukkit.getServer().getPlayer(fighterTwo).teleport(plugin.getArenaManager().getFighterTwo());
 
@@ -935,7 +935,7 @@ public class Tournament {
                 // Store location
                 lockerRoomManager.storeLocation(fighterThree, Bukkit.getServer().getPlayer(fighterThree).getLocation());
                 // Give kit
-                plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterThree), "default");
+                plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterThree), kit);
                 // Send to arena
                 Bukkit.getServer().getPlayer(fighterThree).teleport(plugin.getArenaManager().getFighterThree());
 
@@ -957,7 +957,7 @@ public class Tournament {
                 // Store location
                 lockerRoomManager.storeLocation(fighterOne, Bukkit.getServer().getPlayer(fighterOne).getLocation());
                 // Give kit
-                plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterOne), "default");
+                plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterOne), kit);
                 // Send to the arena
                 Bukkit.getServer().getPlayer(fighterOne).teleport(plugin.getArenaManager().getFighterOne());
 
@@ -972,7 +972,7 @@ public class Tournament {
                 // Store location
                 lockerRoomManager.storeLocation(fighterTwo, Bukkit.getServer().getPlayer(fighterTwo).getLocation());
                 // Give kit
-                plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterTwo), "default");
+                plugin.getKitsManager().getKit(Bukkit.getServer().getPlayer(fighterTwo), kit);
                 // Send to arena
                 Bukkit.getServer().getPlayer(fighterTwo).teleport(plugin.getArenaManager().getFighterTwo());
 
