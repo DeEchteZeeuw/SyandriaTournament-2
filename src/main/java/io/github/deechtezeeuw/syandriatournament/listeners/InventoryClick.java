@@ -18,6 +18,8 @@ public class InventoryClick implements Listener {
     public void onInventoryClick(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
 
+        if (e.getClickedInventory() == null || e.getClickedInventory().getName() == null || plugin.getGui() == null || plugin.getGui().guiList() == null) return;
+
         // Check if inventory is gui
         if (plugin.getGui().guiList().contains(e.getClickedInventory().getName())) {
             e.setCancelled(true);
